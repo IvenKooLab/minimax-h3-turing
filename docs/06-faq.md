@@ -50,6 +50,23 @@ ComfyUI 和桌面共用 2080Ti 时，显存吃紧会触发驱动 TDR 复位（�
 
 翻 KJNodes 源码发现内置了 `MiniMaxH3MemoryEfficientSageAttentionPatch`（fused qkv + RMSRoPE，只补丁 DiT 自注意力）——这是 H3 专属的原生 Sage 补丁，理论上兼容性比第三方 PatchSageAttentionKJ 好。**截至本文尚未在 sm_75 验证通过**，挂在待测清单里（见 [07](07-upgrade-watch.md)）。
 
+## 9. TE-Speed 能装能跑，但作品报废
+
+**现象**：TE-Speed（文本编码器加速）安装运行无报错，速度确实有提升，于是容易误判为可用。
+
+**根因**：H3 走 4 步 Turbo 快路线，步数本来就极少，TE-Speed 的有损压缩在这个短步数下直接造成**语义崩坏**——生成的画面与提示词脱钩。
+
+**结论**：**永久排除**，不是版本问题，等新版也救不回来。想提速请看 [07](07-upgrade-watch.md) 的路线全景，别在这条路上花时间。
+
+## 10. 原生音频会削波吗？
+
+不会，实测可以放心。ffmpeg `volumedetect`/`astats` 检查生成样片：
+
+- 正常样片：mean −14.0dB，**max −0.6dB**（离削波还有余量）
+- 个别偏响样片：mean −25.7dB，max −10.2dB
+
+无需救火。成片流程统一挂一个 **−1dB limiter** 兜底即可。另：v0.33.1 已内置原生 AV 采样修复（commit `bdcb886`），如遇爆音先确认版本，别急着上 DualClockSampler 之类的修复插件。
+
 ---
 
 下一篇：[07 · 升级窗口追踪](07-upgrade-watch.md)
