@@ -6,6 +6,12 @@
 
 > 适用范围：所有 Turing 架构（sm_75）显卡——2080Ti 魔改 22G / 2080Ti 11G 可参考，显存越接近 22G 越接近本文配置。
 
+## 提速演进
+
+![speed progress](docs/assets/speed-progress.svg)
+
+（图由 `scripts/gen_speed_chart.py` 生成，数据口径见 [08](docs/08-t8-blockcache-4step.md)）
+
 ## TL;DR 速览
 
 | 问题 | 结论 |
