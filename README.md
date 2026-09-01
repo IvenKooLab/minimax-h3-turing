@@ -37,6 +37,15 @@
 - ComfyUI：v0.33.1（H3 W4A8 路线已内置原生 AV 采样修复）
 - 路线：h3lite W4A8 compat（T8 BlockCache 节点在 sm_75 不可用，见 07）
 
+## 双平台镜像
+
+| 平台 | 地址 |
+|---|---|
+| Gitee（主站） | https://gitee.com/IvenKooLab/minimax-h3-turing |
+| GitHub | https://github.com/IvenKooLab/minimax-h3-turing |
+
+两边内容自动同步（Gitee 为权威源）。Issue/PR 请到 Gitee。
+
 ## License
 
 MIT
