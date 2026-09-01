@@ -32,7 +32,7 @@
 | [03 SageAttention 崩溃实录](docs/03-sageattention-crash.md) | 2.2.0 wheel 接入管线崩溃 → 定位 → 回滚验证全过程 |
 | [04 社区经验验证](docs/04-community-tips.md) | 可直接抄的三点 + 适用条件 |
 | [05 工作流说明](docs/05-workflows.md) | compat t2v/i2v 工作流导入与占位符替换 |
-| [06 踩坑 FAQ](docs/06-faq.md) | 火绒/staging 卡死、prompt_id 去重、TE-Speed 排除、音频削波等 10 个坑 |
+| [06 踩坑 FAQ](docs/06-faq.md) | 杀软实时防护拖慢初始化、prompt_id 去重、TE-Speed 排除、音频削波等 10 个坑 |
 | [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
 | [08 T8 四步实测](docs/08-t8-blockcache-4step.md) | 43% 提速实测：默认参数零命中、激进档 2.7 分钟/镜、同 seed 复现性代价 |
 | [workflows/](workflows/) | 可导入的 compat 工作流 JSON |
