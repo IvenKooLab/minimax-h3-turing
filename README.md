@@ -2,32 +2,51 @@
 
 **在 2080Ti 22G 魔改卡（Turing / sm_75）上跑通 MiniMax H3 本地视频生成的实测手册。**
 
-包含硬件限制分析、量化路线选择（W4A8 vs W4A4）、SageAttention 兼容性崩溃实录、社区经验验证、可直接导入的 compat 工作流，以及一整页踩坑 FAQ。全部结论来自真实产线运行，非纸面推演。
+全部结论来自真实产线运行，非纸面推演。所有 Turing（sm_75）显卡适用——2080Ti 22G / 11G 均可参考，显存越接近 22G 越接近本文配置。
 
-> 适用范围：所有 Turing 架构（sm_75）显卡——2080Ti 魔改 22G / 2080Ti 11G 可参考，显存越接近 22G 越接近本文配置。
-
-## 提速演进
+## 一张图看懂增效成果
 
 ![speed progress](docs/assets/speed-progress.svg)
 
-（图由 `scripts/gen_speed_chart.py` 生成，数据口径见 [08](docs/08-t8-blockcache-4step.md)）
+同一条 5 秒视频：官方教程的一般环境要 **20–30 分钟/镜**，本手册路线压到 **4.7 分钟（成片标准）/ 2.7 分钟（草稿快跑）**，**快 5–11 倍**。每一分钟是怎么省下来的、每条路线为什么走通或走不通，看下面的路线图与文档。
 
-## TL;DR 速览
+## 增效路线图
 
-| 问题 | 结论 |
-|---|---|
-| 2080Ti 22G 能跑 H3 吗？ | ✅ 能。W4A8 compat 快路线，640×352·124 帧·4 步·原生音频，**最低 3.5-4 分钟/条**（标准镜头约 5.7 分钟） |
-| 量化怎么选？ | **DiT 必须 INT8（W4A8）**。W4A4 误差 18 倍，出彩色撕裂 |
-| SageAttention 能用吗？ | ⚠️ 孤立内核可用，接入 H3 管线在 torch 2.9 + triton 下**原生崩溃**（详见 03） |
-| 速度还能更快吗？ | ⚠️ **T8 BlockCache 激进档 -43%（2.7 分钟/镜，草稿可用）**，成片保 5.7 分钟基线；PDD 等升级窗口（详见 07/08） |
-| 最优启动参数？ | `--reserve-vram 2.5 --vram-headroom 0.5 --disable-pinned-memory`（5-6 秒短片） |
-| 低分辨率不够用？ | 生成 640×352 → 抽帧 → **RTX VSR 超分 1080p**，47ms/帧，Turing 可用 |
+### ✅ Phase 1 · 先跑通 —— 选对唯一可行的量化路线
 
-## 目录
+- [x] 硬件账：sm_75 无 BF16/FP8 张量核心、带宽 616 GB/s，天花板先算清 → [01](docs/01-hardware-limits.md)
+- [x] 量化判决：**DiT 必须 INT8（W4A8）**，W4A4 误差 18 倍、彩色撕裂 → [02](docs/02-w4a8-vs-w4a4.md)
+- [x] compat 降级版工作流（当时 T8 节点不可用），`workflows/` 直接可导入
+
+### ✅ Phase 2 · 跑得稳 —— 稳定性是提速的前提
+
+- [x] 启动参数防 TDR 黑屏 / OOM：`--reserve-vram 2.5 --vram-headroom 0.5 --disable-pinned-memory` → [scripts/](scripts/)
+- [x] 杀软实时防护拖慢模型加载 27 分钟 → 跑前关跑后开 + 断点续跑兜底 → [06](docs/06-faq.md)
+- [x] prompt_id 去重、队列残留、大文件下载等 10 个坑清障 → [06](docs/06-faq.md)
+- [x] 分辨率补足：640×352 生成 → RTX VSR 抽帧超分 1080p（47ms/帧）
+
+### ✅ Phase 3 · 提速研究 —— 每条路都试到出判决为止
+
+- [x] **cu130 反量化红利**：kitchen CUDA 后端满血启用——这正是 5.7 分钟 vs 官方 20–30 分钟的根因，老 torch 用户先查运行时再怀疑显卡 → [01](docs/01-hardware-limits.md)
+- [x] SageAttention：Triton INT8 内核 sm_75 全版本编译失败；CUDA 内核孤立能跑、接管线原生崩溃 → **判死**，已完整回滚 → [03](docs/03-sageattention-crash.md)
+- [x] TE-Speed：短步数下语义崩坏 → **永久排除**，等新版也救不回来 → [06](docs/06-faq.md)
+- [x] **T8 BlockCache 真机实测：激进档 −43% = 2.7 分钟/镜**；纠正「需 ComfyUI ≥0.34」误判（v0.33.1 即可用）；默认参数在 4 步路线上 0 命中属负优化；代价 = 同 seed 不可复现 → 草稿用、成片不用 → [08](docs/08-t8-blockcache-4step.md)
+
+### ⏳ Phase 4 · 在路上 —— 弹药已备齐，等官方发版
+
+- [ ] **PDD LoRA**（阿里 PAI 官方蒸馏，PR #15908 已合入 master，等含它的 release）：权重已下载备料（FL2VA/Ref2VA 各 1.6G），`simple` 8 步 + shifts 12/3 配方已从 PR 挖出，**不需要新节点** → [07](docs/07-upgrade-watch.md)
+- [ ] 升级窗口演练（release 一出照单执行）：备份 → jsdelivr 逐文件升级 → 三件套冒烟 → T8 实测 → PDD 与 Turbo 同 seed 对比 → sage 重验 → 赢了换产线标配
+- [ ] T8 + PDD 组合重测（官方宣称该组合再 +100%，本手册 4 步数据届时全部重跑）
+
+### 💡 Phase 5 · 观望池
+
+- [ ] H3 Max（fal.ai 联合后训练版）：**API 专属无开源权重**，本地不可用；关键镜头可付费走 API，本地党等开源跟进 → [07](docs/07-upgrade-watch.md)
+
+## 文档目录
 
 | 文档 | 内容 |
 |---|---|
-| [01 硬件先天限制](docs/01-hardware-limits.md) | sm_75 缺什么、带宽差距、为什么 W4A8 是唯一路线 |
+| [01 硬件先天限制](docs/01-hardware-limits.md) | sm_75 缺什么、带宽差距、cu130 红利、为什么 W4A8 是唯一路线 |
 | [02 量化路线实测](docs/02-w4a8-vs-w4a4.md) | W4A4 vs W4A8 误差数据、产线速度、社区同款卡成绩 |
 | [03 SageAttention 崩溃实录](docs/03-sageattention-crash.md) | 2.2.0 wheel 接入管线崩溃 → 定位 → 回滚验证全过程 |
 | [04 社区经验验证](docs/04-community-tips.md) | 可直接抄的三点 + 适用条件 |
@@ -36,13 +55,13 @@
 | [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
 | [08 T8 四步实测](docs/08-t8-blockcache-4step.md) | 43% 提速实测：默认参数零命中、激进档 2.7 分钟/镜、同 seed 复现性代价 |
 | [workflows/](workflows/) | 可导入的 compat 工作流 JSON |
-| [scripts/](scripts/) | 防黑屏启动参数示例 |
+| [scripts/](scripts/) | 防黑屏启动参数、T8 A/B 实验、图表再生脚本 |
 
-## 环境
+## 复现环境
 
 - GPU：2080Ti 22G 魔改（Turing，sm_75）
 - ComfyUI：v0.33.1（H3 W4A8 路线已内置原生 AV 采样修复）
-- 路线：h3lite W4A8 compat（T8 BlockCache 节点在 sm_75 不可用，见 07）
+- 路线：h3lite W4A8 compat + fl2v Turbo 4step LoRA（T8 草稿档可选，见 [08](docs/08-t8-blockcache-4step.md)）
 
 ## 双平台镜像
 
