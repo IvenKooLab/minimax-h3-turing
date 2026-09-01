@@ -1,66 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,PingFang SC,Microsoft YaHei,sans-serif">
-<rect width="960" height="470" fill="#ffffff"/>
-<text x="30" y="40" font-size="19" font-weight="700" fill="#111827">2080Ti 22G 跑 MiniMax H3：提速优化演进</text>
-<text x="30" y="62" font-size="12" fill="#9ca3af">640×352 · 124 帧 · W4A8 · 4 步 Turbo · 原生音频 ｜ 同 seed 对照实测，非纸面推演</text>
-<text x="30" y="76" font-size="14" font-weight="600" fill="#374151">A · T8 参数扫描（同晚 A/B，seed 3013 热跑）</text>
-<line x1="70" y1="370" x2="450" y2="370" stroke="#e5e7eb" stroke-width="1"/>
-<text x="62" y="374" font-size="11" fill="#9ca3af" text-anchor="end">0s</text>
-<line x1="70" y1="300" x2="450" y2="300" stroke="#e5e7eb" stroke-width="1"/>
-<text x="62" y="304" font-size="11" fill="#9ca3af" text-anchor="end">80s</text>
-<line x1="70" y1="230" x2="450" y2="230" stroke="#e5e7eb" stroke-width="1"/>
-<text x="62" y="234" font-size="11" fill="#9ca3af" text-anchor="end">160s</text>
-<line x1="70" y1="160" x2="450" y2="160" stroke="#e5e7eb" stroke-width="1"/>
-<text x="62" y="164" font-size="11" fill="#9ca3af" text-anchor="end">240s</text>
-<line x1="70" y1="90" x2="450" y2="90" stroke="#e5e7eb" stroke-width="1"/>
-<text x="62" y="94" font-size="11" fill="#9ca3af" text-anchor="end">320s</text>
-<path d="M117.5 125.0 L212.5 116.2 L307.5 177.5 L402.5 230.0" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
-<circle cx="117.5" cy="125.0" r="5" fill="#2563eb" stroke="#fff" stroke-width="2"/>
-<text x="117.5" y="113.0" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle">280 s</text>
-<text x="117.5" y="388.0" font-size="11" fill="#374151" text-anchor="middle">无 T8</text>
-<text x="117.5" y="402.0" font-size="11" fill="#374151" text-anchor="middle">(基线)</text>
-<circle cx="212.5" cy="116.2" r="5" fill="#dc2626" stroke="#fff" stroke-width="2"/>
-<text x="212.5" y="104.2" font-size="12" font-weight="700" fill="#dc2626" text-anchor="middle">290 s</text>
-<text x="212.5" y="89.2" font-size="11" fill="#dc2626" text-anchor="middle">+4%</text>
-<text x="212.5" y="388.0" font-size="11" fill="#374151" text-anchor="middle">T8 默认</text>
-<text x="212.5" y="402.0" font-size="11" fill="#374151" text-anchor="middle">0.12</text>
-<circle cx="307.5" cy="177.5" r="5" fill="#2563eb" stroke="#fff" stroke-width="2"/>
-<text x="307.5" y="165.5" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle">220 s</text>
-<text x="307.5" y="150.5" font-size="11" fill="#059669" text-anchor="middle">-21%</text>
-<text x="307.5" y="388.0" font-size="11" fill="#374151" text-anchor="middle">T8</text>
-<text x="307.5" y="402.0" font-size="11" fill="#374151" text-anchor="middle">0.45</text>
-<circle cx="402.5" cy="230.0" r="5" fill="#059669" stroke="#fff" stroke-width="2"/>
-<text x="402.5" y="218.0" font-size="12" font-weight="700" fill="#059669" text-anchor="middle">160 s</text>
-<text x="402.5" y="203.0" font-size="11" fill="#059669" text-anchor="middle">-43%</text>
-<text x="402.5" y="388.0" font-size="11" fill="#374151" text-anchor="middle">T8</text>
-<text x="402.5" y="402.0" font-size="11" fill="#374151" text-anchor="middle">1.0 激进</text>
-<text x="30" y="434" font-size="11" fill="#9ca3af">cache 命中：0/4 → 0/4 → 1/4 → 2/4（每命中省约 60s）</text>
-<text x="530" y="76" font-size="14" font-weight="600" fill="#374151">B · 累计提速演进（跨配置）</text>
-<line x1="560" y1="370" x2="900" y2="370" stroke="#e5e7eb" stroke-width="1"/>
-<text x="552" y="374" font-size="11" fill="#9ca3af" text-anchor="end">0min</text>
-<line x1="560" y1="300" x2="900" y2="300" stroke="#e5e7eb" stroke-width="1"/>
-<text x="552" y="304" font-size="11" fill="#9ca3af" text-anchor="end">7min</text>
-<line x1="560" y1="230" x2="900" y2="230" stroke="#e5e7eb" stroke-width="1"/>
-<text x="552" y="234" font-size="11" fill="#9ca3af" text-anchor="end">14min</text>
-<line x1="560" y1="160" x2="900" y2="160" stroke="#e5e7eb" stroke-width="1"/>
-<text x="552" y="164" font-size="11" fill="#9ca3af" text-anchor="end">21min</text>
-<line x1="560" y1="90" x2="900" y2="90" stroke="#e5e7eb" stroke-width="1"/>
-<text x="552" y="94" font-size="11" fill="#9ca3af" text-anchor="end">28min</text>
-<path d="M616.7 120.0 L730.0 313.0 L843.3 343.0" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linejoin="round" opacity="0.55"/>
-<path d="L730.0 313.0 L843.3 343.0" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
-<circle cx="616.7" cy="120.0" r="5" fill="#9ca3af" stroke="#fff" stroke-width="2"/>
-<text x="616.7" y="108.0" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">20-30 min</text>
-<text x="616.7" y="388.0" font-size="11" fill="#374151" text-anchor="middle">官方手册参照</text>
-<text x="616.7" y="402.0" font-size="11" fill="#374151" text-anchor="middle">(未吃到 cu130)</text>
-<circle cx="730.0" cy="313.0" r="5" fill="#2563eb" stroke="#fff" stroke-width="2"/>
-<text x="730.0" y="301.0" font-size="12" font-weight="700" fill="#2563eb" text-anchor="middle">5.7 min</text>
-<text x="730.0" y="388.0" font-size="11" fill="#374151" text-anchor="middle">cu130 红利</text>
-<text x="730.0" y="402.0" font-size="11" fill="#374151" text-anchor="middle">W4A8+Turbo 基线</text>
-<circle cx="843.3" cy="343.0" r="5" fill="#059669" stroke="#fff" stroke-width="2"/>
-<text x="843.3" y="331.0" font-size="12" font-weight="700" fill="#059669" text-anchor="middle">2.7 min</text>
-<text x="843.3" y="388.0" font-size="11" fill="#374151" text-anchor="middle">+ T8 激进档</text>
-<text x="843.3" y="402.0" font-size="11" fill="#374151" text-anchor="middle">(草稿可用)</text>
-<text x="673.3" y="146.0" font-size="12" font-weight="700" fill="#059669" text-anchor="middle">↓ 4.4×</text>
-<text x="786.7" y="339.0" font-size="12" font-weight="700" fill="#059669" text-anchor="middle">↓ 2.1×</text>
-<text x="530" y="434" font-size="11" fill="#9ca3af">相对官方参照累计 ≈ 9.3×；T8 激进档代价：同 seed 不可复现（详见 docs/08）</text>
-<text x="30" y="444" font-size="11" fill="#9ca3af">数据：2026-08-31 基线（340s 实测口径 5.7 min）与 2026-09-01 同晚 A/B（control 280s）。环境：ComfyUI v0.33.1 / torch 2.9.1+cu130 / W4A8 mixed + fl2v Turbo 4step。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="960" height="430" fill="#ffffff"/>
+<text x="30" y="38" font-size="20" font-weight="700" fill="#111827">一条 5 秒短视频，本地要生成多久？</text>
+<text x="30" y="62" font-size="12.5" fill="#9ca3af">MiniMax H3 · 640×352 · 124 帧 · 2080Ti 22G 实测 · 同条件同 seed 对比</text>
+<rect x="608" y="76" width="322" height="34" rx="17" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+<text x="769" y="98" font-size="12.5" font-weight="600" fill="#065f46" text-anchor="middle">参考：官方教程 20–30 分钟/镜 → 本机快 5–6 倍</text>
+<line x1="300" y1="118" x2="300" y2="356" stroke="#e5e7eb" stroke-width="1"/>
+<text x="300" y="374" font-size="11.5" fill="#9ca3af" text-anchor="middle">0</text>
+<line x1="396" y1="118" x2="396" y2="356" stroke="#e5e7eb" stroke-width="1"/>
+<text x="396" y="374" font-size="11.5" fill="#9ca3af" text-anchor="middle">1</text>
+<line x1="492" y1="118" x2="492" y2="356" stroke="#e5e7eb" stroke-width="1"/>
+<text x="492" y="374" font-size="11.5" fill="#9ca3af" text-anchor="middle">2</text>
+<line x1="588" y1="118" x2="588" y2="356" stroke="#e5e7eb" stroke-width="1"/>
+<text x="588" y="374" font-size="11.5" fill="#9ca3af" text-anchor="middle">3</text>
+<line x1="685" y1="118" x2="685" y2="356" stroke="#e5e7eb" stroke-width="1"/>
+<text x="685" y="374" font-size="11.5" fill="#9ca3af" text-anchor="middle">4</text>
+<line x1="781" y1="118" x2="781" y2="356" stroke="#e5e7eb" stroke-width="1"/>
+<text x="781" y="374" font-size="11.5" fill="#9ca3af" text-anchor="middle">5</text>
+<text x="794" y="374" font-size="11.5" fill="#9ca3af">分钟/镜</text>
+<text x="286" y="155" font-size="13.5" fill="#374151" text-anchor="end" font-weight="600">不加 T8（成片标准）</text>
+<rect x="300" y="130" width="452" height="40" rx="6" fill="#2563eb"/>
+<text x="312" y="154" font-size="12" font-weight="600" fill="#fff">✓ 可复现</text>
+<text x="764" y="151" font-size="15" font-weight="700" fill="#111827">4.7 分钟</text>
+<text x="764" y="167" font-size="11.5" fill="#9ca3af">280 s</text>
+<text x="286" y="217" font-size="13.5" fill="#374151" text-anchor="end" font-weight="600">T8 · 默认参数</text>
+<rect x="300" y="192" width="462" height="40" rx="6" fill="#dc2626"/>
+<text x="312" y="216" font-size="12" font-weight="600" fill="#fff">0 次命中</text>
+<text x="774" y="213" font-size="15" font-weight="700" fill="#111827">4.8 分钟</text>
+<text x="774" y="229" font-size="11.5" fill="#9ca3af">290 s</text>
+<text x="852" y="213" font-size="14.5" font-weight="700" fill="#dc2626">+4% 更慢</text>
+<text x="286" y="279" font-size="13.5" fill="#374151" text-anchor="end" font-weight="600">T8 · 阈值 0.45</text>
+<rect x="300" y="254" width="356" height="40" rx="6" fill="#60a5fa"/>
+<text x="312" y="278" font-size="12" font-weight="600" fill="#fff">命中 1/4 步</text>
+<text x="668" y="275" font-size="15" font-weight="700" fill="#111827">3.7 分钟</text>
+<text x="668" y="291" font-size="11.5" fill="#9ca3af">220 s</text>
+<text x="746" y="275" font-size="14.5" font-weight="700" fill="#059669">−21%</text>
+<text x="286" y="341" font-size="13.5" fill="#374151" text-anchor="end" font-weight="600">T8 · 阈值 1.0（激进）</text>
+<rect x="300" y="316" width="260" height="40" rx="6" fill="#059669"/>
+<text x="312" y="340" font-size="12" font-weight="600" fill="#fff">仅草稿 · 不可复现</text>
+<text x="572" y="337" font-size="15" font-weight="700" fill="#111827">2.7 分钟</text>
+<text x="572" y="353" font-size="11.5" fill="#9ca3af">160 s</text>
+<text x="650" y="337" font-size="14.5" font-weight="700" fill="#059669">−43%</text>
+<text x="30" y="404" font-size="11.5" fill="#9ca3af">同晚同 seed 热跑实测（2026-09-01）；T8 = MiniMax 官方 BlockCache 缓存节点，默认参数在 4 步路线上不生效。</text>
+<text x="30" y="422" font-size="11.5" fill="#9ca3af">激进档提速的代价：同 seed 不可复现 → 只用于草稿/选镜头，成片请用无 T8 基线。详见 docs/08。</text>
 </svg>
