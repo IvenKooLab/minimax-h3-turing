@@ -10,9 +10,10 @@
 
 | 问题 | 结论 |
 |---|---|
-| 2080Ti 22G 能跑 H3 吗？ | ✅ 能。W4A8 compat 快路线，640×352·124 帧·4 步·原生音频，**最低 3.5-4 分钟/条** |
+| 2080Ti 22G 能跑 H3 吗？ | ✅ 能。W4A8 compat 快路线，640×352·124 帧·4 步·原生音频，**最低 3.5-4 分钟/条**（标准镜头约 5.7 分钟） |
 | 量化怎么选？ | **DiT 必须 INT8（W4A8）**。W4A4 误差 18 倍，出彩色撕裂 |
 | SageAttention 能用吗？ | ⚠️ 孤立内核可用，接入 H3 管线在 torch 2.9 + triton 下**原生崩溃**（详见 03） |
+| 速度还能更快吗？ | ❌ 当前软件栈已是物理极限，无白捡加速；剩余提速全绑升级窗口（目标 3 分钟/镜，详见 07） |
 | 最优启动参数？ | `--reserve-vram 2.5 --vram-headroom 0.5 --disable-pinned-memory`（5-6 秒短片） |
 | 低分辨率不够用？ | 生成 640×352 → 抽帧 → **RTX VSR 超分 1080p**，47ms/帧，Turing 可用 |
 
@@ -25,8 +26,8 @@
 | [03 SageAttention 崩溃实录](docs/03-sageattention-crash.md) | 2.2.0 wheel 接入管线崩溃 → 定位 → 回滚验证全过程 |
 | [04 社区经验验证](docs/04-community-tips.md) | 可直接抄的三点 + 适用条件 |
 | [05 工作流说明](docs/05-workflows.md) | compat t2v/i2v 工作流导入与占位符替换 |
-| [06 踩坑 FAQ](docs/06-faq.md) | 火绒/staging 卡死、prompt_id 去重、队列残留等 8 个坑 |
-| [07 升级窗口追踪](docs/07-upgrade-watch.md) | v0.34 评估、PDD LoRA #15908、T8 官方开源 |
+| [06 踩坑 FAQ](docs/06-faq.md) | 火绒/staging 卡死、prompt_id 去重、TE-Speed 排除、音频削波等 10 个坑 |
+| [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
 | [workflows/](workflows/) | 可导入的 compat 工作流 JSON |
 | [scripts/](scripts/) | 防黑屏启动参数示例 |
 
