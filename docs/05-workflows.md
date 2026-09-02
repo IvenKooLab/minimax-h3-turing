@@ -12,9 +12,12 @@ H3 官方完整版工作流引用了 T8 BlockCache 节点和完整精度模型�
 
 ## 文件
 
+> 完整用途矩阵、导入三步与坑提示见 [workflows/README](../workflows/README.md)。
+
 | 文件 | 用途 |
 |---|---|
-| [h3_w4a8_t2v_compat_api.json](../workflows/h3_w4a8_t2v_compat_api.json) | 文生视频 |
+| [h3_w4a8_t2v_compat_api.json](../workflows/h3_w4a8_t2v_compat_api.json) | 文生视频 · 成片档（280s/镜，可复现） |
+| [h3_w4a8_t2v_t8draft_api.json](../workflows/h3_w4a8_t2v_t8draft_api.json) | 文生视频 · 草稿快跑档（160s/镜，-43%，同 seed 不可复现） |
 | [h3_w4a8_i2v_compat_api.json](../workflows/h3_w4a8_i2v_compat_api.json) | 图生视频（需要首帧） |
 
 ## 导入与替换

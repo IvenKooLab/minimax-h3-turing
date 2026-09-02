@@ -10,6 +10,13 @@
 
 同一条 5 秒视频：官方教程的一般环境要 **20–30 分钟/镜**，本手册路线压到 **4.7 分钟（成片标准）/ 2.7 分钟（草稿快跑）**，**快 5–11 倍**。每一分钟是怎么省下来的、每条路线为什么走通或走不通，看下面的路线图与文档。
 
+## 这个仓库能给你什么
+
+- ✅ **可直接导入的三件套工作流**（成片 / T8 草稿快跑 / i2v 锁脸），全部真机实测——见 [workflows/README](workflows/README.md)
+- ✅ **13 条踩坑 FAQ**：v3 节点提交 400、同 seed 重跑失灵、空闲自退灭批、杀软拖慢 27 分钟、prompt_id 静默丢弃……每条都是真金白银踩出来的 → [06](docs/06-faq.md)
+- ✅ **提速路线判决全景**：SageAttention 崩溃全过程、T8 BlockCache −43% 实测、TE-Speed 永久排除——哪些路能走、哪些路死了，不用你再试一遍
+- ✅ **A/B 实测方法论**：同 seed 对照脚本拿来就能跑自己的实验 → [scripts/](scripts/)
+
 ## 增效路线图
 
 ### ✅ Phase 1 · 先跑通 —— 选对唯一可行的量化路线
@@ -51,10 +58,10 @@
 | [03 SageAttention 崩溃实录](docs/03-sageattention-crash.md) | 2.2.0 wheel 接入管线崩溃 → 定位 → 回滚验证全过程 |
 | [04 社区经验验证](docs/04-community-tips.md) | 可直接抄的三点 + 适用条件 |
 | [05 工作流说明](docs/05-workflows.md) | compat t2v/i2v 工作流导入与占位符替换 |
-| [06 踩坑 FAQ](docs/06-faq.md) | 杀软实时防护拖慢初始化、prompt_id 去重、TE-Speed 排除、音频削波等 10 个坑 |
+| [06 踩坑 FAQ](docs/06-faq.md) | 13 条：v3 节点 400、同 seed 失灵、空闲自退、杀软拖慢、prompt_id 去重、TE-Speed 排除、音频削波 |
 | [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
 | [08 T8 四步实测](docs/08-t8-blockcache-4step.md) | 43% 提速实测：默认参数零命中、激进档 2.7 分钟/镜、同 seed 复现性代价 |
-| [workflows/](workflows/) | 可导入的 compat 工作流 JSON |
+| [workflows/](workflows/README.md) | 三件套：成片档 / T8 草稿快跑档（-43%）/ i2v，含导入指南 |
 | [scripts/](scripts/) | 防黑屏启动参数、T8 A/B 实验、图表再生脚本 |
 
 ## 复现环境
