@@ -58,6 +58,14 @@
 7. 顺手复测：SageAttention 新版本 on sm_75（见 [03](03-sageattention-crash.md)）、KJNodes 内置 H3 Sage 补丁（见 [06](06-faq.md) 第 8 条）
 8. 赢了 → 写入产线标配，更新本文档判决表
 
+## 窗口日前预热（2026-09-02 预演完成）
+
+- **改动范围已核实**：PDD 核心在 `comfy/ldm/minimax/model.py`（对比 v0.33.1 → master 差异约 195 行，`FinalLayer` head bank + `_pdd_head` 区间混合已确认在 master）；`comfy/lora.py` 的 `set_bias` 以 release tag 实际内容为准
+- **升级工具零改动**：`jsdelivr 逐文件升级脚本`（本仓路线）只改 TAG 即可，路径本就是 Comfy-Org；备份目录自动创建
+- **rank-256 LoRA 澄清**：官方 alibaba-pai/MiniMax-H3-Acc-LoRAs 仓库**只有 2 个 LoRA**（FL2VA/Ref2VA Acc-8Step）；Kijai 仓里的 `minimax_h3_ref_lora_rank_256_bf16`（2.4G）**不属于 PDD 系列**，无文档，暂缓
+- **官方对比材料**（评估 PDD 画质的免费途径）：Acc 仓库 `results/` 有 baseline vs turbo 4step vs acc 8step 三组同场景 768p 对比视频 + `minimax_h3_pdd.py` 参考实现。目测结论：acc 8step 画质与 turbo 同级，细节风格各有取向——值不值得换产线等窗口日同 seed 实测裁决
+- ⚠️ Acc 仓库 license 标注 `other`（非标准开源协议），商用前读 model card 条款
+
 ## 时效性情报（2026-09-01 核查）
 
 - **T8 双时钟采样器官方已开源**（hailuoai.com/h3-open），官方宣称 +100%——但它依赖 v3 Layers API，Turing 能不能吃上要看实现，升级窗口里一并验证。节点包（T8mars/comfyui-minimax-h3-blockcache-T8）最新 commit 2026-08-24，已装的是最新版
