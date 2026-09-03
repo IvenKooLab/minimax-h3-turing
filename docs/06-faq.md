@@ -26,9 +26,9 @@
 
 **解法**：想让重启后是干净状态，关停前清空队列；`.submit.claim` 并发锁文件在进程崩溃后可能残留，会挡住新提交——手动清理。
 
-## 4. T8 BlockCache 节点注册失败
+## 4. T8 BlockCache 节点"不可用"——曾经是误判
 
-`MiniMaxH3BlockCacheT8` 在 sm_75 环境注册失败：依赖 ComfyUI v3 Layers API，且加速内核面向新架构。**Turing 上放弃这个节点**，compat 工作流已经绕开（详见 [01](01-hardware-limits.md)、[07](07-upgrade-watch.md)）。
+`MiniMaxH3BlockCacheT8` 一度被认为在 sm_75 环境注册失败（"依赖 v3 Layers API、面向新架构"）。**9-01 实测翻案**：节点在 v0.33.1 正常注册运行，激进档提速 43%——真正的坑是 v3 节点走 `/prompt` 必须显式给全参数（见第 11 条），以及默认阈值在 4 步路线零命中（见 [08](08-t8-blockcache-4step.md)）。所以结论不是"放弃"，是"会配再用"。
 
 ## 5. aria2 下载的模型文件"幽灵消失"
 
