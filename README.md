@@ -6,7 +6,7 @@
 
 ## 提速体系全景
 
-![speed system](docs/assets/speed-system.svg)
+![speed system](docs/assets/speed-system.png)
 
 一条主路径：官方教程参照（20–30 分钟/镜）→ cu130 反量化 + W4A8 → Turbo / T8 / PDD 三条加速支线 → **PDD+T8 组合（210s，命中 6/8）** → 五件套工作流。可交互版本：[speed-system.html](docs/assets/speed-system.html)（暗/亮主题、节点聚焦；源文件 `speed-system.workflow.json`，由 [Archify](https://github.com/tt-a1i/archify) 渲染）。
 
