@@ -1,5 +1,7 @@
 # minimax-h3-turing
 
+[English](README_EN.md) | 简体中文
+
 **在 2080Ti 22G 魔改卡（Turing / sm_75）上跑通 MiniMax H3 本地视频生成的实测手册。**
 
 全部结论来自真实产线运行，非纸面推演。所有 Turing（sm_75）显卡适用——2080Ti 22G / 11G 均可参考，显存越接近 22G 越接近本文配置。
