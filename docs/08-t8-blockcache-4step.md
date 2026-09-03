@@ -2,8 +2,6 @@
 
 > 2026-09-01 补做的研究。此前结论「T8 需等 ComfyUI ≥0.34」是**误判**——节点在 v0.33.1 上就能用，真正的问题出在别处。
 
-![speed progress](assets/speed-progress.svg)
-
 ## 先纠正上一版的两个误判
 
 1. **「T8 依赖 v3 Layers API，当前版本不可用」——错**。实测 v0.33.1 的 `nodes.py` 完整支持 v3 节点协议（`comfy_entrypoint`），`comfy_api.latest.io` 符号齐全，T8 包四步加载（import → entrypoint → get_node_list → define_schema）全通，节点正常注册进 `/object_info`。
