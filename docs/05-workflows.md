@@ -1,5 +1,22 @@
 # 05 · compat 工作流说明
 
+## 模型下载清单（先看这个）
+
+工作流引用的文件名来自 h3lite W4A8 组件集 A（网盘分发名）；本仓库全部实测基于**路线 B（HF 直链等价版）**——下表右列即推荐下载源：
+
+| 工作流引用名 | 推荐实际下载 | 来源 | 放置目录 |
+|---|---|---|---|
+| minimax_h3_fl2va_pruned_w4a8_mixed_ax1y2jp.safetensors (12.5G) | minimax_h3_fl2va_pruned_w4a8_mixed.safetensors | [Kijai/MiniMax-H3-experimental](https://huggingface.co/Kijai/MiniMax-H3-experimental) | models/diffusion_models/ |
+| qwen3vl_4b_int4_convrot.safetensors (2.8G) | qwen3vl_4b_fp8_scaled.safetensors (5.2G) | [Comfy-Org/Krea-2](https://huggingface.co/Comfy-Org/Krea-2) → text_encoders/ | models/text_encoders/ |
+| mmh3-4b-ClipProj-celeb-mlp.safetensors (304M) | 同名直下 | [NicoLab28/ClipProj-MiniMax-H3](https://huggingface.co/NicoLab28/ClipProj-MiniMax-H3) | models/clip_projections/ |
+| minimax_h3_video_vae_fp16 / audio_vae_fp32 | 同名直下 | [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3) → vae/ | models/vae/ |
+| Turbo 4step LoRA（fl2v/ref2v） | 同名直下 | 同上 → loras/ | models/loras/ |
+| PDD Acc-8Step LoRA（草稿档第五件套用） | 同名直下 | Kijai 仓 → loras/ | models/loras/ |
+
+- **改名规则**：用替代版时，把工作流 JSON 里 loader 节点的文件名改成实际下载名（或反向重命名文件）；两个 W4A8 版本仅差约 26KB（量化配置微调），实测输出一致
+- **坚持要 ax1y2jp 原名版**：h3lite Set A 百度盘 `pan.baidu.com/s/1x5GGuJv0h8chApgVoDgIaQ`（提取码 1hjx）
+- **国内镜像**：huggingface.co 直连不动时换 hf-mirror.com，路径不变；大文件建议多线程分块下载
+
 ## 为什么是 "compat"
 
 H3 官方完整版工作流引用了 T8 BlockCache 节点和完整精度模型名，在 Turing 卡 + 未装 T8 的环境里是**死图**（节点缺失、模型对不上）。compat 版是社区维护的降级适配：
