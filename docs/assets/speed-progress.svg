@@ -1,30 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" font-family="ui-sans-serif,-apple-system,Segoe UI,Roboto,PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 566" font-family="ui-sans-serif,-apple-system,Segoe UI,Roboto,PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif">
 <defs>
 <linearGradient id="c1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f6feb"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>
 <linearGradient id="c4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#388bfd55"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>
+<linearGradient id="p1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8957e5"/><stop offset="1" stop-color="#a371f7"/></linearGradient>
+<linearGradient id="p2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8957e5"/><stop offset="1" stop-color="#d2a8ff"/></linearGradient>
 <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2ea043"/><stop offset="1" stop-color="#56d364"/></linearGradient>
 <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2ea043"/><stop offset="1" stop-color="#7ee787"/></linearGradient>
 <linearGradient id="r1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#da3633"/><stop offset="1" stop-color="#f85149"/></linearGradient>
 <linearGradient id="r2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#da363366"/><stop offset="1" stop-color="#f85149"/></linearGradient>
 </defs>
-<rect x="8" y="8" width="944" height="484" rx="16" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+<rect x="8" y="8" width="944" height="550" rx="16" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
 <text x="36" y="56" font-size="21" font-weight="700" fill="#e6edf3">一条 5 秒视频，本地要生成多久？</text>
 <text x="36" y="80" font-size="12.5" fill="#8b949e">MiniMax H3 · 640×352 · 124 帧 · 2080Ti 22G 实测 · 同条件同 seed 对照</text>
 <rect x="742" y="38" width="182" height="34" rx="17" fill="#2ea04326" stroke="#2ea04366" stroke-width="1"/>
 <text x="833" y="60" font-size="14" font-weight="700" fill="#3fb950" text-anchor="middle">⚡ 快 5–11 倍</text>
-<line x1="316.0" y1="114" x2="316.0" y2="432" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
-<text x="316.0" y="450" font-size="11" fill="#6e7681" text-anchor="middle">0</text>
-<line x1="408.6" y1="114" x2="408.6" y2="432" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
-<text x="408.6" y="450" font-size="11" fill="#6e7681" text-anchor="middle">1</text>
-<line x1="501.2" y1="114" x2="501.2" y2="432" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
-<text x="501.2" y="450" font-size="11" fill="#6e7681" text-anchor="middle">2</text>
-<line x1="593.8" y1="114" x2="593.8" y2="432" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
-<text x="593.8" y="450" font-size="11" fill="#6e7681" text-anchor="middle">3</text>
-<line x1="686.4" y1="114" x2="686.4" y2="432" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
-<text x="686.4" y="450" font-size="11" fill="#6e7681" text-anchor="middle">4</text>
-<line x1="779.0" y1="114" x2="779.0" y2="432" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
-<text x="779.0" y="450" font-size="11" fill="#6e7681" text-anchor="middle">5</text>
-<text x="795.0" y="450" font-size="11" fill="#6e7681">分钟/镜</text>
+<line x1="316.0" y1="114" x2="316.0" y2="498" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
+<text x="316.0" y="516" font-size="11" fill="#6e7681" text-anchor="middle">0</text>
+<line x1="408.6" y1="114" x2="408.6" y2="498" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
+<text x="408.6" y="516" font-size="11" fill="#6e7681" text-anchor="middle">1</text>
+<line x1="501.2" y1="114" x2="501.2" y2="498" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
+<text x="501.2" y="516" font-size="11" fill="#6e7681" text-anchor="middle">2</text>
+<line x1="593.8" y1="114" x2="593.8" y2="498" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
+<text x="593.8" y="516" font-size="11" fill="#6e7681" text-anchor="middle">3</text>
+<line x1="686.4" y1="114" x2="686.4" y2="498" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
+<text x="686.4" y="516" font-size="11" fill="#6e7681" text-anchor="middle">4</text>
+<line x1="779.0" y1="114" x2="779.0" y2="498" stroke="#21262d" stroke-width="1" stroke-dasharray="2 5"/>
+<text x="779.0" y="516" font-size="11" fill="#6e7681" text-anchor="middle">5</text>
+<text x="795.0" y="516" font-size="11" fill="#6e7681">分钟/镜</text>
 <text x="298" y="146" font-size="13.5" font-weight="600" fill="#e6edf3" text-anchor="end">官方教程路线</text>
 <text x="298" y="161" font-size="10.5" fill="#8b949e" text-anchor="end">参照 · 未吃到 cu130 反量化红利</text>
 <rect x="316" y="144" width="500" height="13" rx="6" fill="#161b22"/>
@@ -66,7 +68,15 @@
 <circle cx="566.0" cy="414" r="6" fill="#3fb950" stroke="#0d1117" stroke-width="2"/>
 <text x="582.0" y="412" font-size="15.5" font-weight="700" fill="#3fb950">2.7 分钟</text>
 <text x="582.0" y="428" font-size="10.5" fill="#8b949e">160 s · ⚡ −43%</text>
-<line x1="36" y1="436" x2="924" y2="436" stroke="#21262d" stroke-width="1"/>
-<text x="36" y="458" font-size="11" fill="#6e7681">数据：2026-09-01 同晚同 seed 热跑实测；T8 = MiniMax 官方 BlockCache，默认参数在 4 步路线 0 命中（负优化）。</text>
-<text x="36" y="476" font-size="11" fill="#6e7681">激进档代价：同 seed 不可复现 → 只用于草稿/选镜头；成片请用无 T8 基线。详见 docs/08。</text>
+<text x="298" y="476" font-size="13.5" font-weight="600" fill="#e6edf3" text-anchor="end">PDD 8 步+T8</text>
+<text x="298" y="491" font-size="10.5" fill="#8b949e" text-anchor="end">极速草稿 · 蒸馏画质 · 命中 6/8</text>
+<rect x="316" y="474" width="500" height="13" rx="6" fill="#161b22"/>
+<rect x="316" y="474" width="324.1" height="13" rx="6" fill="url(#p1)"/>
+<circle cx="640.1" cy="480" r="12" fill="#a371f7" opacity="0.16"/>
+<circle cx="640.1" cy="480" r="6" fill="#a371f7" stroke="#0d1117" stroke-width="2"/>
+<text x="656.1" y="478" font-size="15.5" font-weight="700" fill="#a371f7">3.5 分钟</text>
+<text x="656.1" y="494" font-size="10.5" fill="#8b949e">210 s · ⚡ 画质+速度双冠</text>
+<line x1="36" y1="470" x2="924" y2="470" stroke="#21262d" stroke-width="1"/>
+<text x="36" y="492" font-size="11" fill="#6e7681">数据：2026-09-01 同晚同 seed 热跑实测；T8 = MiniMax 官方 BlockCache，默认参数在 4 步路线 0 命中（负优化）。</text>
+<text x="36" y="510" font-size="11" fill="#6e7681">激进档代价：同 seed 不可复现 → 只用于草稿/选镜头；成片请用无 T8 基线。详见 docs/08。</text>
 </svg>
