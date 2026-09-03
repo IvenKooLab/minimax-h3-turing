@@ -35,47 +35,47 @@
 <rect x="752" y="144" width="64" height="13" rx="6" fill="#484f58" opacity="0.35"/>
 <circle cx="726.0" cy="150" r="11" fill="#8b949e" opacity="0.18"/>
 <circle cx="726.0" cy="150" r="5.5" fill="#8b949e"/>
-<text x="828.0" y="155" font-size="15.5" font-weight="700" fill="#8b949e">20–30 分钟</text>
+<text x="832.0" y="155" font-size="15.5" font-weight="700" fill="#8b949e">20–30 分钟</text>
 <text x="298" y="212" font-size="13.5" font-weight="600" fill="#e6edf3" text-anchor="end">不加 T8</text>
 <text x="298" y="227" font-size="10.5" fill="#8b949e" text-anchor="end">成片标准 · 可复现</text>
 <rect x="316" y="210" width="500" height="13" rx="6" fill="#161b22"/>
 <rect x="316" y="210" width="435.2" height="13" rx="6" fill="url(#c1)"/>
 <circle cx="751.2" cy="216" r="12" fill="#e6edf3" opacity="0.16"/>
 <circle cx="751.2" cy="216" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2"/>
-<text x="767.2" y="214" font-size="15.5" font-weight="700" fill="#e6edf3">4.7 分钟</text>
-<text x="767.2" y="230" font-size="10.5" fill="#8b949e">280 s · 基线</text>
+<text x="832" y="214" font-size="15.5" font-weight="700" fill="#e6edf3">4.7 分钟</text>
+<text x="832" y="230" font-size="10.5" fill="#8b949e">280 s · 基线</text>
 <text x="298" y="278" font-size="13.5" font-weight="600" fill="#e6edf3" text-anchor="end">T8 · 默认参数</text>
 <text x="298" y="293" font-size="10.5" fill="#8b949e" text-anchor="end">4 步路线 0 次命中</text>
 <rect x="316" y="276" width="500" height="13" rx="6" fill="#161b22"/>
 <rect x="316" y="276" width="444.4" height="13" rx="6" fill="url(#r1)"/>
 <circle cx="760.4" cy="282" r="12" fill="#f85149" opacity="0.16"/>
 <circle cx="760.4" cy="282" r="6" fill="#f85149" stroke="#0d1117" stroke-width="2"/>
-<text x="776.4" y="280" font-size="15.5" font-weight="700" fill="#f85149">4.8 分钟</text>
-<text x="776.4" y="296" font-size="10.5" fill="#8b949e">290 s · +4% 更慢</text>
+<text x="832" y="280" font-size="15.5" font-weight="700" fill="#f85149">4.8 分钟</text>
+<text x="832" y="296" font-size="10.5" fill="#8b949e">290 s · +4% 更慢</text>
 <text x="298" y="344" font-size="13.5" font-weight="600" fill="#e6edf3" text-anchor="end">T8 · 阈值 0.45</text>
 <text x="298" y="359" font-size="10.5" fill="#8b949e" text-anchor="end">命中 1/4 步</text>
 <rect x="316" y="342" width="500" height="13" rx="6" fill="#161b22"/>
 <rect x="316" y="342" width="342.6" height="13" rx="6" fill="url(#b1)"/>
 <circle cx="658.6" cy="348" r="12" fill="#e6edf3" opacity="0.16"/>
 <circle cx="658.6" cy="348" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2"/>
-<text x="674.6" y="346" font-size="15.5" font-weight="700" fill="#e6edf3">3.7 分钟</text>
-<text x="674.6" y="362" font-size="10.5" fill="#8b949e">220 s · −21%</text>
+<text x="832" y="346" font-size="15.5" font-weight="700" fill="#e6edf3">3.7 分钟</text>
+<text x="832" y="362" font-size="10.5" fill="#8b949e">220 s · −21%</text>
 <text x="298" y="410" font-size="13.5" font-weight="600" fill="#e6edf3" text-anchor="end">T8 · 阈值 1.0</text>
 <text x="298" y="425" font-size="10.5" fill="#8b949e" text-anchor="end">草稿档 · 同 seed 不可复现</text>
 <rect x="316" y="408" width="500" height="13" rx="6" fill="#161b22"/>
 <rect x="316" y="408" width="250.0" height="13" rx="6" fill="url(#g1)"/>
 <circle cx="566.0" cy="414" r="12" fill="#3fb950" opacity="0.16"/>
 <circle cx="566.0" cy="414" r="6" fill="#3fb950" stroke="#0d1117" stroke-width="2"/>
-<text x="582.0" y="412" font-size="15.5" font-weight="700" fill="#3fb950">2.7 分钟</text>
-<text x="582.0" y="428" font-size="10.5" fill="#8b949e">160 s · ⚡ −43%</text>
+<text x="832" y="412" font-size="15.5" font-weight="700" fill="#3fb950">2.7 分钟</text>
+<text x="832" y="428" font-size="10.5" fill="#8b949e">160 s · ⚡ −43%</text>
 <text x="298" y="476" font-size="13.5" font-weight="600" fill="#e6edf3" text-anchor="end">PDD 8 步+T8</text>
 <text x="298" y="491" font-size="10.5" fill="#8b949e" text-anchor="end">极速草稿 · 蒸馏画质 · 命中 6/8</text>
 <rect x="316" y="474" width="500" height="13" rx="6" fill="#161b22"/>
 <rect x="316" y="474" width="324.1" height="13" rx="6" fill="url(#p1)"/>
 <circle cx="640.1" cy="480" r="12" fill="#a371f7" opacity="0.16"/>
 <circle cx="640.1" cy="480" r="6" fill="#a371f7" stroke="#0d1117" stroke-width="2"/>
-<text x="656.1" y="478" font-size="15.5" font-weight="700" fill="#a371f7">3.5 分钟</text>
-<text x="656.1" y="494" font-size="10.5" fill="#8b949e">210 s · ⚡ 画质+速度双冠</text>
+<text x="832" y="478" font-size="15.5" font-weight="700" fill="#a371f7">3.5 分钟</text>
+<text x="832" y="494" font-size="10.5" fill="#8b949e">210 s · ⚡ 双冠</text>
 <line x1="36" y1="470" x2="924" y2="470" stroke="#21262d" stroke-width="1"/>
 <text x="36" y="492" font-size="11" fill="#6e7681">数据：2026-09-01 同晚同 seed 热跑实测；T8 = MiniMax 官方 BlockCache，默认参数在 4 步路线 0 命中（负优化）。</text>
 <text x="36" y="510" font-size="11" fill="#6e7681">激进档代价：同 seed 不可复现 → 只用于草稿/选镜头；成片请用无 T8 基线。详见 docs/08。</text>

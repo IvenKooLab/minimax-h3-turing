@@ -29,7 +29,7 @@ rows = [
     dict(main="T8 · 阈值 1.0", sub="草稿档 · 同 seed 不可复现", mins=2.7, secs="160 s",
          g=("g2", "g1"), valc="#3fb950", tag="⚡ −43%", tagc="#3fb950"),
     dict(main="PDD 8 步+T8", sub="极速草稿 · 蒸馏画质 · 命中 6/8", mins=3.5, secs="210 s",
-         g=("p2", "p1"), valc="#a371f7", tag="⚡ 画质+速度双冠", tagc="#a371f7"),
+         g=("p2", "p1"), valc="#a371f7", tag="⚡ 双冠", tagc="#a371f7"),
 ]
 
 def px(v):
@@ -106,7 +106,7 @@ for i, r in enumerate(rows):
           % (X0 + bw, cy))
         A('<circle cx="%.1f" cy="%.0f" r="5.5" fill="#8b949e"/>' % (X0 + bw, cy))
         A('<text x="%.1f" y="%.0f" font-size="15.5" font-weight="700" fill="%s">%s</text>'
-          % (X0 + XMAX + 12, cy + 5, r["tagc"], r["tag"]))
+          % (X0 + XMAX + 16, cy + 5, r["tagc"], r["tag"]))
         continue
     bw = px(r["mins"]) - X0
     A('<rect x="%d" y="%.0f" width="%.1f" height="%d" rx="%d" fill="url(#%s)"/>'
@@ -117,11 +117,12 @@ for i, r in enumerate(rows):
       % (ex, cy, r["valc"]))
     A('<circle cx="%.1f" cy="%.0f" r="6" fill="%s" stroke="%s" stroke-width="2"/>'
       % (ex, cy, r["valc"], CARD))
-    # value block right of dot
-    A('<text x="%.1f" y="%.0f" font-size="15.5" font-weight="700" fill="%s">%.1f 分钟</text>'
-      % (ex + 16, cy - 2, r["valc"], r["mins"]))
-    A('<text x="%.1f" y="%.0f" font-size="10.5" fill="%s">%s · %s</text>'
-      % (ex + 16, cy + 14, SUB, r["secs"], r["tag"]))
+    # value block in a fixed right column (never rides the bar edge)
+    vx = X0 + XMAX + 16
+    A('<text x="%d" y="%.0f" font-size="15.5" font-weight="700" fill="%s">%.1f 分钟</text>'
+      % (vx, cy - 2, r["valc"], r["mins"]))
+    A('<text x="%d" y="%.0f" font-size="10.5" fill="%s">%s · %s</text>'
+      % (vx, cy + 14, SUB, r["secs"], r["tag"]))
 
 # footer
 A('<line x1="36" y1="%d" x2="%d" y2="%d" stroke="#21262d" stroke-width="1"/>'
