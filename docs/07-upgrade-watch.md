@@ -11,7 +11,7 @@
 | cu130 硬件反量化 | ✅ 已吃到 | kitchen CUDA 后端满血，当前速度的根因（见 [01](01-hardware-limits.md)），无额外动作 |
 | SageAttention | ❌ 判死 | Triton INT8 内核 sm_75 编译失败（3.2.0–3.8.0 全版本）；CUDA 内核孤立可跑、接管线原生崩溃（见 [03](03-sageattention-crash.md)），升级窗口可重验 |
 | T8 双时钟 | ✅ **已实测可用** | 9-01 纠正误判：v0.33.1 就能跑。4 步路线激进档 **-43%（160s/镜）**，但同 seed 不可复现——草稿用 T8、成片不用，详见 [08](08-t8-blockcache-4step.md) |
-| PDD LoRA | ⏳ 等版本 | PR #15908 已进 master，等 release（见下文）；**权重已备料下载完成** |
+| PDD LoRA | ✅ **已实测落地**（9-03 不等 release，master backport）：8 步 600s 可复现；**+T8 组合 210s（-34%）命中 6/8**——详见 [09](09-pdd-backport.md) |
 | TE-Speed | ❌ 永久排除 | 短步数下语义崩坏，作品报废（见 [06](06-faq.md) 第 9 条） |
 | RTX VSR 超分 | ✅ 可用 | 不是提速是补分辨率：640×352 → 1080p，47ms/帧 |
 

@@ -8,7 +8,7 @@ Pure stdlib. Rerun to regenerate.
 """
 import os
 
-W, H = 960, 500
+W, H = 960, 566
 X0, XMAX, VMAX = 316, 500, 5.4     # track origin px, scale px, minutes
 TRACK_Y, ROW_H, TOP = 0, 66, 128   # per-row geometry
 BAR_H = 13
@@ -28,6 +28,8 @@ rows = [
          g=("b4", "b1"), valc=INK, tag="−21%", tagc=SUB),
     dict(main="T8 · 阈值 1.0", sub="草稿档 · 同 seed 不可复现", mins=2.7, secs="160 s",
          g=("g2", "g1"), valc="#3fb950", tag="⚡ −43%", tagc="#3fb950"),
+    dict(main="PDD 8 步+T8", sub="极速草稿 · 蒸馏画质 · 命中 6/8", mins=3.5, secs="210 s",
+         g=("p2", "p1"), valc="#a371f7", tag="⚡ 画质+速度双冠", tagc="#a371f7"),
 ]
 
 def px(v):
@@ -43,6 +45,10 @@ A('<linearGradient id="c1" x1="0" y1="0" x2="1" y2="0">'
   '<stop offset="0" stop-color="#1f6feb"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>')
 A('<linearGradient id="c4" x1="0" y1="0" x2="1" y2="0">'
   '<stop offset="0" stop-color="#388bfd55"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>')
+A('<linearGradient id="p1" x1="0" y1="0" x2="1" y2="0">'
+  '<stop offset="0" stop-color="#8957e5"/><stop offset="1" stop-color="#a371f7"/></linearGradient>')
+A('<linearGradient id="p2" x1="0" y1="0" x2="1" y2="0">'
+  '<stop offset="0" stop-color="#8957e5"/><stop offset="1" stop-color="#d2a8ff"/></linearGradient>')
 A('<linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">'
   '<stop offset="0" stop-color="#2ea043"/><stop offset="1" stop-color="#56d364"/></linearGradient>')
 A('<linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">'
@@ -69,11 +75,11 @@ A('<text x="833" y="60" font-size="14" font-weight="700" fill="#3fb950" '
 for v in range(0, 6):
     gx = px(v)
     A('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="#21262d" '
-      'stroke-width="1" stroke-dasharray="2 5"/>' % (gx, TOP - 14, gx, TOP + 5 * ROW_H - 26))
+      'stroke-width="1" stroke-dasharray="2 5"/>' % (gx, TOP - 14, gx, TOP + 6 * ROW_H - 26))
     A('<text x="%.1f" y="%d" font-size="11" fill="%s" text-anchor="middle">%d</text>'
-      % (gx, TOP + 5 * ROW_H - 8, FAINT, v))
+      % (gx, TOP + 6 * ROW_H - 8, FAINT, v))
 A('<text x="%.1f" y="%d" font-size="11" fill="%s">分钟/镜</text>'
-  % (px(5) + 16, TOP + 5 * ROW_H - 8, FAINT))
+  % (px(5) + 16, TOP + 6 * ROW_H - 8, FAINT))
 
 for i, r in enumerate(rows):
     y = TOP + i * ROW_H
@@ -119,13 +125,13 @@ for i, r in enumerate(rows):
 
 # footer
 A('<line x1="36" y1="%d" x2="%d" y2="%d" stroke="#21262d" stroke-width="1"/>'
-  % (H - 64, W - 36, H - 64))
+  % (H - 96, W - 36, H - 96))
 A('<text x="36" y="%d" font-size="11" fill="%s">'
   '数据：2026-09-01 同晚同 seed 热跑实测；T8 = MiniMax 官方 BlockCache，默认参数在 4 步路线 0 命中（负优化）。</text>'
-  % (H - 42, FAINT))
+  % (H - 74, FAINT))
 A('<text x="36" y="%d" font-size="11" fill="%s">'
   '激进档代价：同 seed 不可复现 → 只用于草稿/选镜头；成片请用无 T8 基线。详见 docs/08。</text>'
-  % (H - 24, FAINT))
+  % (H - 56, FAINT))
 A('</svg>')
 
 out = os.path.normpath(os.path.join(os.path.dirname(__file__), "..",

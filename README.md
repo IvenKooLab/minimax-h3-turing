@@ -39,11 +39,11 @@
 - [x] TE-Speed：短步数下语义崩坏 → **永久排除**，等新版也救不回来 → [06](docs/06-faq.md)
 - [x] **T8 BlockCache 真机实测：激进档 −43% = 2.7 分钟/镜**；纠正「需 ComfyUI ≥0.34」误判（v0.33.1 即可用）；默认参数在 4 步路线上 0 命中属负优化；代价 = 同 seed 不可复现 → 草稿用、成片不用 → [08](docs/08-t8-blockcache-4step.md)
 
-### ⏳ Phase 4 · 在路上 —— 弹药已备齐，等官方发版
+### ✅ Phase 4 · 提速终局 —— PDD 不等官方，自己移植落地（9-03）
 
-- [ ] **PDD LoRA**（阿里 PAI 官方蒸馏，PR #15908 已合入 master，等含它的 release）：权重已下载备料（FL2VA/Ref2VA 各 1.6G），`simple` 8 步 + shifts 12/3 配方已从 PR 挖出，**不需要新节点** → [07](docs/07-upgrade-watch.md)
-- [ ] 升级窗口演练（release 一出照单执行）：备份 → jsdelivr 逐文件升级 → 三件套冒烟 → T8 实测 → PDD 与 Turbo 同 seed 对比 → sage 重验 → 赢了换产线标配
-- [ ] T8 + PDD 组合重测（官方宣称该组合再 +100%，本手册 4 步数据届时全部重跑）
+- [x] **PDD LoRA master backport**（不等 v0.34.1+）：单文件不够→全量升级三坑全解（comfy_api 盲区/PyAV/T8 签名）→ **PDD 8步 600s 可复现 + PDD8+T8 组合 210s（-34%）命中 6/8** → [09](docs/09-pdd-backport.md)
+- [x] T8 节点 master 兼容补丁（FinalLayer 7 参签名自适应），待回馈上游
+- [ ] PDD vs Turbo 成片画质盲测；Ref2VA（i2v）版 PDD 待测
 
 ### 💡 Phase 5 · 观望池
 
@@ -61,7 +61,8 @@
 | [06 踩坑 FAQ](docs/06-faq.md) | 13 条：v3 节点 400、同 seed 失灵、空闲自退、杀软拖慢、prompt_id 去重、TE-Speed 排除、音频削波 |
 | [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
 | [08 T8 四步实测](docs/08-t8-blockcache-4step.md) | 43% 提速实测：默认参数零命中、激进档 2.7 分钟/镜、同 seed 复现性代价 |
-| [workflows/](workflows/README.md) | 四件套（附预览截图）：t2v/i2v × 成片/草稿快跑，含导入指南 |
+| [09 PDD 提前落地](docs/09-pdd-backport.md) | 不等 release 的 master backport 实录：PDD8+T8 组合 **210s（-34%）命中 6/8**，三坑全解 |
+| [workflows/](workflows/README.md) | 五件套（附预览截图）：t2v/i2v × 成片/草稿 + PDD 极速档，含导入指南 |
 | [scripts/](scripts/) | 防黑屏启动参数、T8 A/B 实验、图表再生脚本 |
 
 ## 复现环境
