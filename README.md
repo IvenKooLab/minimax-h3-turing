@@ -10,11 +10,7 @@
 
 一条主路径：官方教程参照（20–30 分钟/镜）→ cu130 反量化 + W4A8 → Turbo / T8 / PDD 三条加速支线 → **PDD+T8 组合（210s，命中 6/8）** → 五件套工作流。可交互版本：[speed-system.html](docs/assets/speed-system.html)（暗/亮主题、节点聚焦；源文件 `speed-system.workflow.json`，由 [Archify](https://github.com/tt-a1i/archify) 渲染）。
 
-同一条 5 秒视频：官方教程的一般环境要 **20–30 分钟/镜**，本手册路线压到 **4.7 分钟（成片标准）/ 2.7 分钟（草稿快跑）/ 3.5 分钟（PDD+T8 极速草稿）**，**快 5–11 倍**。逐档耗时对比：
-
-![speed progress](docs/assets/speed-progress.svg)
-
-（条形图由 `scripts/gen_speed_chart.py` 生成，数据口径见 [08](docs/08-t8-blockcache-4step.md)/[09](docs/09-pdd-backport.md)）
+同一条 5 秒视频：官方教程的一般环境要 **20–30 分钟/镜**，本手册路线压到 **4.7 分钟（成片标准）/ 2.7 分钟（草稿快跑）/ 3.5 分钟（PDD+T8 极速草稿）**，**快 5–11 倍**——逐档耗时与数据口径见 [08](docs/08-t8-blockcache-4step.md)/[09](docs/09-pdd-backport.md)。
 
 ## 这个仓库能给你什么
 
