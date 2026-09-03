@@ -1,0 +1,163 @@
+{
+ "schema_version": 2,
+ "diagram_type": "workflow",
+ "meta": {
+  "title": "MiniMax H3 on 2080Ti · 提速体系",
+  "locale": "zh-CN",
+  "quality_profile": "showcase",
+  "animation": "none"
+ },
+ "lanes": [
+  {
+   "id": "runtime",
+   "label": "运行时"
+  },
+  {
+   "id": "accel",
+   "label": "加速组合"
+  },
+  {
+   "id": "deliver",
+   "label": "产出"
+  }
+ ],
+ "mainPath": [
+  "cu130",
+  "w4a8",
+  "t8",
+  "combo",
+  "suite"
+ ],
+ "nodes": [
+  {
+   "id": "cu130",
+   "lane": "runtime",
+   "col": 0,
+   "type": "backend",
+   "label": "官方教程参照",
+   "sublabel": "20–30 分钟/镜"
+  },
+  {
+   "id": "w4a8",
+   "lane": "runtime",
+   "col": 1,
+   "type": "backend",
+   "label": "cu130 + W4A8",
+   "sublabel": "反量化 · 5.7 分钟基线"
+  },
+  {
+   "id": "turbo",
+   "lane": "runtime",
+   "col": 2,
+   "type": "backend",
+   "label": "Turbo 4 步",
+   "sublabel": "320s · 可复现成片"
+  },
+  {
+   "id": "t8",
+   "lane": "accel",
+   "col": 2,
+   "type": "cloud",
+   "label": "T8 缓存草稿档",
+   "sublabel": "160s · −43%"
+  },
+  {
+   "id": "pdd",
+   "lane": "accel",
+   "col": 3,
+   "type": "cloud",
+   "label": "PDD 8 步蒸馏",
+   "sublabel": "600s · 蒸馏画质"
+  },
+  {
+   "id": "combo",
+   "lane": "accel",
+   "col": 4,
+   "type": "cloud",
+   "label": "PDD + T8",
+   "sublabel": "210s · 命中 6/8"
+  },
+  {
+   "id": "suite",
+   "lane": "deliver",
+   "col": 5,
+   "type": "database",
+   "label": "五件套工作流",
+   "sublabel": "开源手册 + 实测数据"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e1",
+   "from": "cu130",
+   "to": "w4a8",
+   "label": "torch cu130"
+  },
+  {
+   "id": "e2",
+   "from": "w4a8",
+   "to": "turbo",
+   "label": "4 步 LoRA"
+  },
+  {
+   "id": "e3",
+   "from": "w4a8",
+   "to": "t8",
+   "label": "BlockCache"
+  },
+  {
+   "id": "e4",
+   "from": "w4a8",
+   "to": "pdd",
+   "label": "蒸馏 LoRA"
+  },
+  {
+   "id": "e5",
+   "from": "t8",
+   "to": "combo"
+  },
+  {
+   "id": "e6",
+   "from": "pdd",
+   "to": "combo"
+  },
+  {
+   "id": "e7",
+   "from": "combo",
+   "to": "suite",
+   "label": "极速草稿档"
+  },
+  {
+   "id": "e8",
+   "from": "turbo",
+   "to": "suite",
+   "label": "成片档"
+  }
+ ],
+ "cards": [
+  {
+   "dot": "emerald",
+   "title": "快 5–11×",
+   "items": [
+    "本机各档 vs 官方教程参照",
+    "cu130 反量化是根因"
+   ]
+  },
+  {
+   "dot": "violet",
+   "title": "210s 双冠",
+   "items": [
+    "PDD+T8 命中 6/8",
+    "速度与画质同时最优"
+   ]
+  },
+  {
+   "dot": "amber",
+   "title": "双档纪律",
+   "items": [
+    "草稿用缓存档（不可复现）",
+    "成片用可复现档"
+   ]
+  }
+ ]
+}
