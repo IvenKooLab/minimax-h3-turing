@@ -73,15 +73,6 @@
 - ComfyUI：v0.33.1（H3 W4A8 路线已内置原生 AV 采样修复）
 - 路线：h3lite W4A8 compat + fl2v Turbo 4step LoRA（T8 草稿档可选，见 [08](docs/08-t8-blockcache-4step.md)）
 
-## 双平台镜像
-
-| 平台 | 地址 |
-|---|---|
-| Gitee（主站） | https://gitee.com/IvenKooLab/minimax-h3-turing |
-| GitHub | https://github.com/IvenKooLab/minimax-h3-turing |
-
-两边内容自动同步（Gitee 为权威源）。Issue/PR 请到 Gitee。
-
 ## License
 
 MIT
