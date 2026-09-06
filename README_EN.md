@@ -2,19 +2,21 @@
 
 English | [简体中文](README.md)
 
+[![Featured in awesome-minimax-h3-integration](https://img.shields.io/badge/featured_in-awesome--minimax--h3--integration-8A2BE2?logo=githubsponsors&logoColor=white)](https://github.com/MiniMax-AI/awesome-minimax-h3-integration)
+
 **A field-tested handbook for running MiniMax H3 local video generation on a 2080Ti 22G mod card (Turing / sm_75).**
 
 Every conclusion here comes from a real production pipeline, not paper math. Applies to all Turing (sm_75) GPUs — 2080Ti 22G / 11G both work; the closer your VRAM is to 22G, the closer you are to this configuration.
 
 ## The Speed System at a Glance
 
-One main path: official tutorial reference (20–30 min/clip) → cu130 dequantization + W4A8 → three acceleration branches (Turbo / T8 / PDD) → **PDD+T8 combo (210 s, 6/8 cache hits)** → the five-workflow kit.
+One main path: official tutorial reference (20–30 min/clip) → cu130 dequantization + W4A8 → three acceleration branches (Turbo / T8 / PDD) → **PDD+T8 combo (210 s, 6/8 cache hits)** → the six-workflow kit.
 
 The same 5-second clip: **20–30 min/clip** in a typical environment following the official tutorial, compressed to **4.7 min (final-shot standard) / 2.7 min (fast draft) / 3.5 min (PDD+T8 ultra draft)** — **5–11× faster**. Per-tier timings and data methodology: [08](docs/en/08-t8-blockcache-4step.md) / [09](docs/en/09-pdd-backport.md).
 
 ## What This Repo Gives You
 
-- ✅ **Five ready-to-import workflows** (t2v/i2v, each with a final-shot tier and a T8 fast-draft tier, plus a PDD ultra tier) — all verified on real hardware, with preview screenshots: [workflows/README](workflows/README.md)
+- ✅ **Six ready-to-import workflows** (t2v/i2v, each with a final-shot tier and a T8 fast-draft tier, plus a PDD ultra tier) — all verified on real hardware, with preview screenshots: [workflows/README](workflows/README.md)
 - ✅ **13 field-tested FAQ entries**: v3-node 400s on `/prompt`, same-seed re-runs diverging, idle auto-exit killing batches, antivirus slowing model loading by 27 minutes, silent prompt_id dedup drops… every one paid for in real time → [06](docs/en/06-faq.md)
 - ✅ **Verdict table for every speedup route**: the full SageAttention crash autopsy, T8 BlockCache measured at −43%, TE-Speed permanently ruled out — which roads work and which are dead, so you don't have to try them again
 - ✅ **A/B measurement methodology**: same-seed A/B control scripts ready to run for your own experiments → [scripts/](scripts/)

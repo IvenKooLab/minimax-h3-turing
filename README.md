@@ -2,13 +2,15 @@
 
 [English](README_EN.md) | 简体中文
 
+[![Featured in awesome-minimax-h3-integration](https://img.shields.io/badge/featured_in-awesome--minimax--h3--integration-8A2BE2?logo=githubsponsors&logoColor=white)](https://github.com/MiniMax-AI/awesome-minimax-h3-integration)
+
 **在 2080Ti 22G 魔改卡（Turing / sm_75）上跑通 MiniMax H3 本地视频生成的实测手册。**
 
 全部结论来自真实产线运行，非纸面推演。所有 Turing（sm_75）显卡适用——2080Ti 22G / 11G 均可参考，显存越接近 22G 越接近本文配置。
 
 ## 提速体系全景
 
-一条主路径：官方教程参照（20–30 分钟/镜）→ cu130 反量化 + W4A8 → Turbo / T8 / PDD 三条加速支线 → **PDD+T8 组合（210s，命中 6/8）** → 五件套工作流。
+一条主路径：官方教程参照（20–30 分钟/镜）→ cu130 反量化 + W4A8 → Turbo / T8 / PDD 三条加速支线 → **PDD+T8 组合（210s，命中 6/8）** → 六件套工作流。
 
 同一条 5 秒视频：官方教程的一般环境要 **20–30 分钟/镜**，本手册路线压到 **4.7 分钟（成片标准）/ 2.7 分钟（草稿快跑）/ 3.5 分钟（PDD+T8 极速草稿）**，**快 5–11 倍**——逐档耗时与数据口径见 [08](docs/08-t8-blockcache-4step.md)/[09](docs/09-pdd-backport.md)。
 
@@ -64,7 +66,7 @@
 | [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
 | [08 T8 四步实测](docs/08-t8-blockcache-4step.md) | 43% 提速实测：默认参数零命中、激进档 2.7 分钟/镜、同 seed 复现性代价 |
 | [09 PDD 提前落地](docs/09-pdd-backport.md) | 不等 release 的 master backport 实录：PDD8+T8 组合 **210s（-34%）命中 6/8**，三坑全解 |
-| [workflows/](workflows/README.md) | 五件套（附预览截图）：t2v/i2v × 成片/草稿 + PDD 极速档，含导入指南 |
+| [workflows/](workflows/README.md) | 六件套（附预览截图）：t2v/i2v × 成片/草稿 + PDD 极速档，含导入指南 |
 | [scripts/](scripts/) | 防黑屏启动参数、T8 A/B 实验、图表再生脚本 |
 
 ## 复现环境
