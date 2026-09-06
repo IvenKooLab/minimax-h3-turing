@@ -1,4 +1,4 @@
-# Workflows · The Five-Workflow Kit, Ready to Import
+# Workflows · The Six-Workflow Kit, Ready to Import
 
 All verified on a 2080Ti 22G + ComfyUI + W4A8 mixed weights (same-night, same-seed A/B: t2v on Sep 1, i2v on Sep 2, PDD on Sep 3).
 
@@ -8,6 +8,7 @@ All verified on a 2080Ti 22G + ComfyUI + W4A8 mixed weights (same-night, same-se
 | [t2v fast-draft tier](#2-t2v--fast-draft-tier-t8--43) | prompt iteration / shot selection | 160 s (2.7 min, **−43%**) |
 | [i2v final tier](#3-i2v--first-frame-anchoring-face-lock) | face lock / continuation · final | 420 s (7.0 min) |
 | [i2v fast-draft tier](#4-i2v--fast-draft-tier-t8--38) | drafts for face-locked shots | 260 s (4.3 min, **−38%**) |
+| [i2v PDD8+T8 ultra draft](#6-i2v--pdd8t8-ultra-draft-192-s--master-only) | face lock · fastest and highest quality | **192 s (−51%)** |
 | [PDD8+T8 ultra draft](#5-t2v--pdd8t8-ultra-draft-210-s--master-only) | fastest AND highest-quality drafts | **210 s (−34% vs Turbo)** |
 
 ---
@@ -53,6 +54,14 @@ Drafts for face-locked shots: 38% faster, and the **absolute saving (160 s/clip)
 **File**: [h3_w4a8_t2v_pdd8_t8_api.json](h3_w4a8_t2v_pdd8_t8_api.json) · **210 s/clip (−34% vs Turbo, 6/8 hits)**
 
 The official PDD distilled LoRA (8-step) combined with the T8 cache: **currently the fastest tier and the highest quality** (the official 8-step distillation beats the community 4-step Turbo in blind comparison pending; official materials already show parity-or-better). Extra prerequisites: ① a ComfyUI **master environment** (backport recipe in [docs/09](../docs/en/09-pdd-backport.md), or wait for v0.34.1+) ② the PDD weights (download from the `Kijai/MiniMax-H3-experimental` repo, `loras/`) ③ the T8 node pack with the master-compat patch from docs/09. Not same-seed reproducible (drafts only); for reproducible PDD-quality finals, drop the T8 node and run pure 8-step (600 s).
+
+## 6. i2v · PDD8+T8 Ultra Draft (192 s, master only)
+
+![i2v pdd8 t8](preview/i2v_pdd8_t8.jpg)
+
+**File**: [h3_w4a8_i2v_pdd8_t8_api.json](h3_w4a8_i2v_pdd8_t8_api.json) · **192 s/clip (−51%, 6/8 hits)**
+
+The ultimate draft tier for face-locked shots — the fastest record in this project. Same prerequisites as section 5 (master environment + PDD weights + the T8 patch), with the Ref2VA LoRA. Not same-seed reproducible; for reproducible Ref2VA finals drop the T8 node and run pure 8-step (933 s).
 
 ---
 

@@ -1,4 +1,4 @@
-# Workflows · 可直接导入的四件套
+# Workflows · 可直接导入的六件套
 
 全部在本机 2080Ti 22G + ComfyUI v0.33.1 + W4A8 mixed 权重上实测验证（同晚同 seed A/B，t2v 于 09-01、i2v 于 09-02）。
 
@@ -8,6 +8,7 @@
 | [t2v 草稿快跑档](#2-文生视频--草稿快跑档-t8--43) | 试 prompt / 选镜头方向 | 160 s（2.7 min，**-43%**） |
 | [i2v 成片档](#3-图生视频--首帧锚定锁脸) | 锁脸 / 画面续接·正片 | 420 s（7.0 min） |
 | [i2v 草稿快跑档](#4-图生视频--草稿快跑档-t8--38) | 锁脸镜头的草稿预览 | 260 s（4.3 min，**-38%**） |
+| [i2v PDD8+T8 极速草稿](#6-图生视频--pdd8t8-极速草稿-192s--master-环境) | 锁脸·最快且最高画质 | **192 s（-51%）** |
 | [t2v PDD8+T8 极速草稿](#5-文生视频--pdd8t8-极速草稿-210s--master-环境) | 最快且画质最高的草稿 | **210 s（-34% vs Turbo）** |
 
 ---
@@ -53,6 +54,14 @@ T8 BlockCache 阈值 1.0，快 43%。**同 seed 不可复现**（缓存命中改
 **文件**：[h3_w4a8_t2v_pdd8_t8_api.json](h3_w4a8_t2v_pdd8_t8_api.json) · **实测 210 s/镜（-34% vs Turbo，命中 6/8）**
 
 PDD 官方蒸馏 LoRA（8 步）+ T8 缓存的组合拳：**目前最快档，同时画质最高**（8 步蒸馏 > 4 步社区 Turbo 的官方对比结论）。前置要求比前四件多两样：① ComfyUI **master 环境**（backport 方法见 [docs/09](../docs/09-pdd-backport.md)，或等 v0.34.1+）② PDD 权重（`Kijai/MiniMax-H3-experimental` 仓 loras/ 下载）③ T8 节点包需打 docs/09 的 master 兼容补丁。同 seed 不可复现（草稿专用）；要 PDD 画质的可复现成片，去掉 T8 节点跑纯 8 步（600s）。
+
+## 6. 图生视频 · PDD8+T8 极速草稿（192s，master 环境）
+
+![i2v pdd8 t8](preview/i2v_pdd8_t8.jpg)
+
+**文件**：[h3_w4a8_i2v_pdd8_t8_api.json](h3_w4a8_i2v_pdd8_t8_api.json) · **实测 192 s/镜（-51%，命中 6/8）**
+
+锁脸镜头的终极草稿档：全项目最快纪录。前置与第 5 节相同（master 环境 + PDD 权重 + T8 补丁），LoRA 换 Ref2VA 版。同 seed 不可复现；要可复现的 Ref2VA 成片，去掉 T8 跑纯 8 步（933s）。
 
 ---
 

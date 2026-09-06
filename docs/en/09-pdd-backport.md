@@ -59,19 +59,31 @@ The subtle part: **the hit path must pass `sample_sigmas` to final_layer** — t
 - PDD+T8 output: composition intact, no artifacts (the head bank blends per-step correctly on the hit path); audio mean −27.6 dB / max −13.8 dB, no clipping, ~8 dB quiet (a known cache-path trait — normalize loudness in post)
 - Reproducibility: PDD 8-step without T8 = reproducible (final-shot tier); PDD+T8 = not same-seed reproducible (draft tier, consistent with the T8 behavior in [08](08-t8-blockcache-4step.md))
 
+## Ref2VA (i2v) Lands Too (added 2026-09-04)
+
+The same method applied to i2v (Ref2VA-Acc-8Step LoRA, first-frame face-lock route), same seed, same default first frame, master environment, warm runs:
+
+| Config | Time | Notes |
+|---|---|---|
+| i2v Turbo 4-step (no T8, re-measured master baseline) | 395 s | was 417 s on 0.33.1 — master slightly faster here |
+| i2v Ref2VA PDD 8-step (no T8) | 933 s | reproducible + distilled quality |
+| **i2v Ref2VA PDD + T8 (threshold 1.0)** | **192 s** | **6/8 hits, −51%** |
+
+Three takeaways: ① **192 s is the fastest record in this entire project** — the priciest route (face-locked shots) now renders faster than the old t2v final tier (280 s); ② the absolute saving of 203 s/clip confirms "the pricier the shot, the more T8 saves"; ③ zero load errors — the Ref2VA variant behaves identically to FL2VA on master.
+
 ## The Tier System (from 2026-09-03)
 
 | Tier | Config | Speed | Use |
 |---|---|---|---|
-| ⚡ Ultra draft | **PDD 8-step + T8** | **210 s** | shot selection / prompt iteration — the highest-quality draft |
-| ✅ Final | **PDD 8-step** | 600 s | reproducible + distilled quality (swap the whole final-shot tier if the blind test prefers it) |
-| Legacy final | Turbo 4-step | 320 s | existing projects |
+| ⚡ Ultra draft | **PDD 8-step + T8** | **210 s (t2v) / 192 s (i2v)** | shot selection / prompt iteration — the highest-quality draft |
+| ✅ Final | **PDD 8-step** | 600 s (t2v) / 933 s (i2v) | reproducible + distilled quality (swap the whole final-shot tier if the blind test prefers it) |
+| Legacy final | Turbo 4-step | 320 s (t2v) / 395 s (i2v) | existing projects |
 
 > ⚠️ Every PDD tier requires a master environment (this page's backport, or a future v0.34.1+). On 0.33.1, use the four-workflow [kit](../workflows/README.md).
 
 ## Open Items
 
-- The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) — decides whether the final-shot tier switches wholesale
-- The Ref2VA PDD variant (i2v route) untested
-- The T8 compatibility patch pending upstream feedback (a follow-up on T8mars issue #4, or a PR)
-- Why the Turbo baseline is 14% slower on master (320 vs 280 s) — uninvestigated (suspect: the new transcoding path)
+- The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale
+- ~~The Ref2VA PDD variant (i2v route) untested~~ ✅ tested Sep 4 — see above
+- ~~The T8 compatibility patch pending upstream feedback~~ ✅ posted as a follow-up on T8mars issue #4 (Sep 3); PR pending author response
+- Why the Turbo baseline is 14% slower on master (320 vs 280 s): **the Sep 4 re-test shows it is t2v-specific** — i2v is 5% faster on master (417→395 s); suspicion narrows to the t2v-side transcode/packaging path
