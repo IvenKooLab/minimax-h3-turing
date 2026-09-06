@@ -11,7 +11,7 @@
 | mmh3-4b-ClipProj-celeb-mlp.safetensors (304M) | 同名直下 | [NicoLab28/ClipProj-MiniMax-H3](https://huggingface.co/NicoLab28/ClipProj-MiniMax-H3) | models/clip_projections/ |
 | minimax_h3_video_vae_fp16 / audio_vae_fp32 | 同名直下 | [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3) → vae/ | models/vae/ |
 | Turbo 4step LoRA（fl2v/ref2v） | 同名直下 | 同上 → loras/ | models/loras/ |
-| PDD Acc-8Step LoRA（草稿档第五件套用） | 同名直下 | Kijai 仓 → loras/ | models/loras/ |
+| PDD Acc-8Step LoRA（FL2VA=t2v 极速档 / Ref2VA=i2v 极速档） | 同名直下 | Kijai 仓 → loras/ | models/loras/ |
 
 - **改名规则**：用替代版时，把工作流 JSON 里 loader 节点的文件名改成实际下载名（或反向重命名文件）；两个 W4A8 版本仅差约 26KB（量化配置微调），实测输出一致
 - **坚持要 ax1y2jp 原名版**：h3lite Set A 百度盘 `pan.baidu.com/s/1x5GGuJv0h8chApgVoDgIaQ`（提取码 1hjx）

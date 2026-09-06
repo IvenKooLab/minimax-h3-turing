@@ -16,7 +16,7 @@
 
 ## 这个仓库能给你什么
 
-- ✅ **可直接导入的四件套工作流**（t2v/i2v 各配成片档 + T8 草稿快跑档），全部真机实测、附预览截图——见 [workflows/README](workflows/README.md)
+- ✅ **可直接导入的六件套工作流**（t2v/i2v × 成片/草稿 + PDD 极速档×2），全部真机实测、附预览截图——见 [workflows/README](workflows/README.md)
 - ✅ **13 条踩坑 FAQ**：v3 节点提交 400、同 seed 重跑失灵、空闲自退灭批、杀软拖慢 27 分钟、prompt_id 静默丢弃……每条都是真金白银踩出来的 → [06](docs/06-faq.md)
 - ✅ **提速路线判决全景**：SageAttention 崩溃全过程、T8 BlockCache −43% 实测、TE-Speed 永久排除——哪些路能走、哪些路死了，不用你再试一遍
 - ✅ **A/B 实测方法论**：同 seed 对照脚本拿来就能跑自己的实验 → [scripts/](scripts/)
@@ -66,6 +66,7 @@
 | [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
 | [08 T8 四步实测](docs/08-t8-blockcache-4step.md) | 43% 提速实测：默认参数零命中、激进档 2.7 分钟/镜、同 seed 复现性代价 |
 | [09 PDD 提前落地](docs/09-pdd-backport.md) | 不等 release 的 master backport 实录：PDD8+T8 组合 **210s（-34%）命中 6/8**，三坑全解 |
+| [10 基准数据总表](docs/10-benchmarks.md) | 全部实测一张表：t2v/i2v 各档、命中矩阵、机理常数、音频、版本对比、判死路线 |
 | [workflows/](workflows/README.md) | 六件套（附预览截图）：t2v/i2v × 成片/草稿 + PDD 极速档，含导入指南 |
 | [scripts/](scripts/) | 防黑屏启动参数、T8 A/B 实验、图表再生脚本 |
 

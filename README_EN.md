@@ -66,7 +66,8 @@ The same 5-second clip: **20–30 min/clip** in a typical environment following 
 | [07 Upgrade-window watch](docs/en/07-upgrade-watch.md) | The full route verdict table, v0.34 assessment, PDD LoRA #15908, official T8 open-sourcing |
 | [08 T8 on the 4-step route](docs/en/08-t8-blockcache-4step.md) | The −43% measurement: zero hits at defaults, 2.7 min/clip aggressive, the same-seed reproducibility cost |
 | [09 PDD without waiting](docs/en/09-pdd-backport.md) | The master backport field report: PDD8+T8 **210 s (−34%), 6/8 hits**, three pitfalls solved |
-| [workflows/](workflows/README.md) | The five-workflow kit (with previews): t2v/i2v × final/draft + PDD ultra, with import guide |
+| [10 Benchmark dataset](docs/en/10-benchmarks.md) | Every measurement on one page: all tiers, the hit matrix, mechanism constants, audio, version deltas, ruled-out routes |
+| [workflows/](workflows/README.md) | The six-workflow kit (with previews): t2v/i2v × final/draft + PDD ultra tiers, with import guide |
 | [scripts/](scripts/) | Anti-black-screen launch template, T8 A/B harness, chart regen script |
 
 ## Reproduction Environment

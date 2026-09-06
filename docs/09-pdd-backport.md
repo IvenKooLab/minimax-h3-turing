@@ -79,7 +79,7 @@ except TypeError:
 | ✅ 成片 | **PDD 8 步** | 600s（t2v）/ 933s（i2v） | 可复现 + 蒸馏画质（若审片确认优于 Turbo，可整体替换成片档） |
 | 旧成片 | Turbo 4 步 | 320s（t2v）/ 395s（i2v） | 兼容旧项目 |
 
-> ⚠️ PDD 各档需要 master 环境（本页 backport 或未来的 v0.34.1+）；0.33.1 环境请用 [workflows](../workflows/README.md) 四件套。
+> ⚠️ PDD 各档需要 master 环境（本页 backport 或未来的 v0.34.1+）；0.33.1 环境请用 [workflows](../workflows/README.md) 的前四件（PDD 档除外）。
 
 ## 未尽事项
 
