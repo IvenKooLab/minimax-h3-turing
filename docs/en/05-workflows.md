@@ -11,7 +11,7 @@ The file names referenced by the workflows come from h3lite's W4A8 component Set
 | mmh3-4b-ClipProj-celeb-mlp.safetensors (304M) | same name, direct | [NicoLab28/ClipProj-MiniMax-H3](https://huggingface.co/NicoLab28/ClipProj-MiniMax-H3) | models/clip_projections/ |
 | minimax_h3_video_vae_fp16 / audio_vae_fp32 | same name, direct | [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3) → vae/ | models/vae/ |
 | Turbo 4-step LoRA (fl2v/ref2v) | same name, direct | same repo → loras/ | models/loras/ |
-| PDD Acc-8Step LoRA (for the fifth, ultra-draft workflow) | same name, direct | Kijai repo → loras/ | models/loras/ |
+| PDD Acc-8Step LoRA (FL2VA = t2v ultra tier / Ref2VA = i2v ultra tier) | same name, direct | Kijai repo → loras/ | models/loras/ |
 
 - **Renaming rule**: when using a substitute, edit the loader node's file name in the workflow JSON to match your actual download (or rename the files); the two W4A8 variants differ by ~26 KB (a quantization-config tweak) and produce identical output in our tests
 - **If you insist on the ax1y2jp-named originals**: h3lite Set A, Baidu Pan `pan.baidu.com/s/1x5GGuJv0h8chApgVoDgIaQ` (code `1hjx`)
