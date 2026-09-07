@@ -1,0 +1,50 @@
+# h3-turing
+
+English-first toolkit (中文说明见下). Field-tested presets and utilities for running **MiniMax H3** video generation on Turing (sm_75) GPUs through ComfyUI — the executable half of the [minimax-h3-turing](https://github.com/IvenKooLab/minimax-h3-turing) handbook.
+
+**Zero runtime dependencies.** Python ≥ 3.9, stdlib only.
+
+```bash
+pip install git+https://github.com/IvenKooLab/minimax-h3-turing.git#subdirectory=python
+```
+
+## Quick start
+
+```python
+from h3turing import get, load, render, set_prompt, set_seed
+from h3turing.client import ComfyUI, bump_seed
+
+comfy = ComfyUI()  # http://127.0.0.1:8188, retry discipline built in
+
+graph = load(get("t2v-draft").workflow)      # bundled, field-tested JSON
+set_prompt(graph, "a lone swordsman in a misty bamboo forest at dawn")
+set_seed(graph, 3013)
+
+history = comfy.render(graph)                 # submit + poll with stall detection
+```
+
+## What's inside
+
+| Module | Codified experience |
+|---|---|
+| `h3turing.tiers` | The six measured tiers (t2v/i2v × final/draft + PDD ultra tiers) with requirements, reproducibility discipline and reference timings |
+| `h3turing.client` | ComfyUI HTTP client: retry-with-backoff (the API lags at 100% GPU), parsed v3-node 400 errors, `bump_seed()` against silent prompt_id dedup, stall-aware polling |
+| `h3turing.workflows` | The bundled six-workflow kit (API graphs with `__H3_PROMPT__` placeholders), safe deep copies |
+| `h3turing.benchmark` | Same-seed A/B harness with cache-hit parsing - the methodology behind every number in the handbook |
+| `h3turing.doctor` | Pre-production checks: ComfyUI alive, queue clean (persisted-queue revival, FAQ #3), T8 node registered, core weights present |
+
+## The one rule that matters
+
+**T8 draft tiers are not same-seed reproducible** (cache hits fork the trajectory - equal quality, different picture). Everything with `reproducible=False` is for drafts; final shots use the plain tiers. This rule is enforced in code: `tiers.reproducible_only()` exists so you can't accidentally pick a draft tier for the cut.
+
+## 中文速览
+
+零依赖（纯标准库）的 H3 Turing 工具包：六件套工作流预设、带重试纪律的 ComfyUI 客户端、同 seed A/B 基准框架、开工检查。`tiers.reproducible_only()` 强制草稿/成片分档纪律。完整文档与全部实测数据见[手册](https://github.com/IvenKooLab/minimax-h3-turing)。
+
+## Tests
+
+```bash
+python -m unittest discover -s tests -v   # no GPU required
+```
+
+MIT license. If this saves you a day, an issue or star on the handbook repo is appreciated.
