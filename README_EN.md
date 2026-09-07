@@ -17,6 +17,7 @@ The same 5-second clip: **20–30 min/clip** in a typical environment following 
 ## What This Repo Gives You
 
 - ✅ **Six ready-to-import workflows** (t2v/i2v, each with a final-shot tier and a T8 fast-draft tier, plus a PDD ultra tier) — all verified on real hardware, with preview screenshots: [workflows/README](workflows/README.md)
+- ✅ **The Python library `h3-turing`**: all of the above codified - six tier presets, a retry-disciplined ComfyUI client, the A/B benchmark harness, pre-production checks. Zero dependencies (stdlib only) — see [python/](python/README.md)
 - ✅ **13 field-tested FAQ entries**: v3-node 400s on `/prompt`, same-seed re-runs diverging, idle auto-exit killing batches, antivirus slowing model loading by 27 minutes, silent prompt_id dedup drops… every one paid for in real time → [06](docs/en/06-faq.md)
 - ✅ **Verdict table for every speedup route**: the full SageAttention crash autopsy, T8 BlockCache measured at −43%, TE-Speed permanently ruled out — which roads work and which are dead, so you don't have to try them again
 - ✅ **A/B measurement methodology**: same-seed A/B control scripts ready to run for your own experiments → [scripts/](scripts/)
