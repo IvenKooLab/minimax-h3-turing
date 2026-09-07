@@ -20,6 +20,9 @@ classifiers = [
 ]
 dependencies = []
 
+[project.scripts]
+h3turing = "h3turing.cli:main"
+
 [project.urls]
 Handbook = "https://github.com/IvenKooLab/minimax-h3-turing"
 
