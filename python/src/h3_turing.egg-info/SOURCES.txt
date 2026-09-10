@@ -18,4 +18,5 @@ src/h3turing/data/h3_w4a8_i2v_t8draft_api.json
 src/h3turing/data/h3_w4a8_t2v_compat_api.json
 src/h3turing/data/h3_w4a8_t2v_pdd8_t8_api.json
 src/h3turing/data/h3_w4a8_t2v_t8draft_api.json
+tests/test_cli.py
 tests/test_core.py

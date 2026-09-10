@@ -50,6 +50,17 @@ compat + W4A8 measured as the optimum on this card (see [01](01-hardware-limits.
 - For 1080p deliverables: keep generating at 640×352 → extract frames → RTX VSR upscale. **Do not** raise the workflow resolution (VRAM and time both blow up)
 - Write prompts in three beats: subject → action/camera → environment & light (see h3lite's official methodology)
 
+## New-ComfyUI UI Exports and Subgraph Workflows
+
+On the master environment (the prerequisite for the PDD tiers), the newer frontend exports **subgraph nodes** inside UI-format workflows. Such JSON runs fine when dragged into the UI, but **submitting it to `/prompt` gets rejected** — subgraphs are a frontend concept; the API layer only understands a flattened node graph.
+
+Symptoms and handling:
+
+- **Symptoms**: `/prompt` complains about missing nodes or broken links while the UI runs the same workflow fine; the JSON shows `type` fields with subgraph namespaces, link ids as UUIDs, or virtual nodes at `inputs=-10 / outputs=-20`
+- **Fix**: flatten before submitting. The mechanics: instantiate the subgraph's inner nodes → bridge input slots (including fan-out) → resolve UUID link chains transitively → skip frontend-only nodes like `MarkdownNote` → auto-generate Primitive nodes carrying defaults for pass-through slots; the widget-bound link marker is `"widget" in t_ins[l[4]]` (newer exports list widget slots inside node `inputs`)
+- **Ready-made implementation**: [ComfyAgent](https://github.com/IvenKooLab/comfy-agent) v1.5.2, `server.py: convert_ui_to_api / _flatten_subgraphs` (open source, MIT; 5 unit tests; proven on a 102-node nested graph with zero loss)
+- The six workflows in this repo are **native API format** and unaffected — this only matters when you save/derive your own workflows from the UI
+
 ## Common Import Failures
 
 | Symptom | Cause |
