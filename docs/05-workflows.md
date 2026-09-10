@@ -50,6 +50,17 @@ H3 官方完整版工作流引用了 T8 BlockCache 节点和完整精度模型�
 - 要 1080p 成片：保持 640×352 生成 → 抽帧 → RTX VSR 超分，**不要**直接改工作流分辨率（显存和时间都不划算）
 - prompt 按三段式写：主体 → 动作/运镜 → 环境与光线，具体参考 h3lite 官方方法论
 
+## 新版 ComfyUI 的 UI 导出与子图工作流
+
+在 master 环境（本手册 PDD 档的前提）里，新版前端会把**子图（subgroup）节点**导出进 UI 格式工作流。这类 JSON 直接拖进界面能跑，但**提交 `/prompt` 会被拒**——子图是前端概念，API 层只认展平后的节点图。
+
+判定与处理：
+
+- **症状**：`/prompt` 报缺节点或连线错乱，但界面里明明能跑；打开 JSON 能看到 `type` 带子图命名空间、连线 id 是 UUID、或出现 `inputs=-10 / outputs=-20` 的虚拟节点
+- **正解**：先展平再提交。展平要点：实例化子图内部节点 → 桥接输入槽（含 fan-out）→ 级联解析 UUID 连线链 → 跳过 `MarkdownNote` 等前端专属节点 → 数据穿透的槽自动生成 Primitive 节点承载默认值；widget 绑定线的判定特征是 `"widget" in t_ins[l[4]]`（新版导出把 widget 槽列进节点 `inputs`）
+- **现成实现**：[ComfyAgent](https://github.com/IvenKooLab/comfy-agent) v1.5.2 的 `server.py: convert_ui_to_api / _flatten_subgraphs`（开源 MIT，含 5 项单测，实测 102 节点嵌套图零丢失展开）
+- 本仓库的六件套是**原生 API 格式**，不受此问题影响；只有当你从界面另存/改造出自己的工作流时才需要走这一步
+
 ## 常见导入失败
 
 | 现象 | 原因 |
