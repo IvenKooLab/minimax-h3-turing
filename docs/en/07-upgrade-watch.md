@@ -12,6 +12,7 @@ First, one clear statement on "can it go faster": on the current software stack,
 | SageAttention | ❌ ruled out | Triton INT8 kernels fail to compile on sm_75 (all versions 3.2.0–3.8.0); the CUDA kernel runs standalone but crashes natively in-pipeline (see [03](03-sageattention-crash.md)); re-test at an upgrade window |
 | T8 dual-clock | ✅ **proven working** | Misdiagnosis corrected Sep 1: it runs on v0.33.1. Aggressive tier on the 4-step route **−43% (160 s/clip)**, but same-seed runs are not reproducible — T8 for drafts, not for final shots; see [08](08-t8-blockcache-4step.md) |
 | PDD LoRA | ✅ **landed without waiting** (Sep 3, master backport): 8-step 600 s reproducible; **+T8 combo 210 s (−34%), 6/8 hits** — see [09](09-pdd-backport.md) |
+> Spillover: the master environment is also a native dependency for newer ecosystem nodes (e.g. SCAIL-2 motion-transfer on Wan2.1) — this upgrade wasn't only about PDD.
 | TE-Speed | ❌ permanently ruled out | Semantic collapse at short step counts; output ruined (see [06](06-faq.md) #9) |
 | RTX VSR upscale | ✅ usable | Not a speedup but a resolution patch: 640×352 → 1080p at 47 ms/frame |
 

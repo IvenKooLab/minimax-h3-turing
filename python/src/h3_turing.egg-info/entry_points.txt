@@ -1,2 +1,0 @@
-[console_scripts]
-h3turing = h3turing.cli:main
