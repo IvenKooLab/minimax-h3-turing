@@ -71,6 +71,22 @@ Uniform countermeasure: a −1 dB limiter on the final-shot pipeline.
 | i2v Turbo 4-step | 417 s | 395 s | **−5%** | master is actually faster here |
 | Single-file backport smoke | — | pixel-identical (frame MAE = 0) | 0 | master's model.py is numerically equivalent on the plain path |
 
+## Frame-Interpolation-for-Length Experiment (2026-09-16, 15-second clips)
+
+Native frame count reduced and RIFE v4 (stock ComfyUI node) interpolates back to 362; same seed 3013, Turbo 4-step, master environment:
+
+| Plan | Native frames | Interp | Total time | vs baseline | Audio length | Picture quality |
+|---|---|---|---|---|---|---|
+| Native baseline | 362 | — | **24.5 min** | — | 15.1 s ✓ full | reference |
+| Half + 2x | 181 | RIFE | **13.0 min** | **−47%** | **8.0 s ✗ shrunk** | no blur steps across interpolated frames; no visible artifacts |
+| Third + 3x | 121 | RIFE | **7.5 min** | **−69%** | **5.2 s ✗ shrunk** | same |
+
+**Conclusions**:
+1. **The picture path works** — 47–69% faster with acceptable interpolated-frame quality (mist / medium motion); fast-motion artifact risk untested
+2. **The hard constraint: H3 native audio is bound to latent length** — the audio track shrinks with the frame count (181→8 s, 121→5.2 s); interpolation extends video frames only
+3. **Applicability**: pipelines that overdub in post (H3 picture + separately laid ambience) can use this directly; clips that need native audio should stay with native-length generation or split-and-concat
+4. RIFE v4 weights are 24.6 MB (`models/frame_interpolation/rife_v4.flownet.pkl`, HF MonsterMMORPG/Practical-RIFE); node = stock ComfyUI FrameInterpolate
+
 ## Ruled-Out Routes at a Glance
 
 | Route | Verdict | One-liner |
