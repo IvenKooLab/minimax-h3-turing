@@ -1,81 +1,90 @@
 # minimax-h3-turing
 
-[English](README_EN.md) | 简体中文
+English | [简体中文](README.zh-CN.md)
 
 [![Featured in awesome-minimax-h3-integration](https://img.shields.io/badge/featured_in-awesome--minimax--h3--integration-8A2BE2?logo=githubsponsors&logoColor=white)](https://github.com/MiniMax-AI/awesome-minimax-h3-integration)
 
-**在 2080Ti 22G 魔改卡（Turing / sm_75）上跑通 MiniMax H3 本地视频生成的实测手册。**
+**A field-tested handbook for running MiniMax H3 local video generation on a 2080Ti 22G mod card (Turing / sm_75).**
 
-全部结论来自真实产线运行，非纸面推演。所有 Turing（sm_75）显卡适用——2080Ti 22G / 11G 均可参考，显存越接近 22G 越接近本文配置。
+Every conclusion here comes from a real production pipeline, not paper math. Applies to all Turing (sm_75) GPUs — 2080Ti 22G / 11G both work; the closer your VRAM is to 22G, the closer you are to this configuration.
 
-## 提速体系全景
+## The Speed System at a Glance
 
-一条主路径：官方教程参照（20–30 分钟/镜）→ cu130 反量化 + W4A8 → Turbo / T8 / PDD 三条加速支线 → **PDD+T8 组合（210s，命中 6/8）** → 六件套工作流。
+One main path: official tutorial reference (20–30 min/clip) → cu130 dequantization + W4A8 → three acceleration branches (Turbo / T8 / PDD) → **PDD+T8 combo (210 s, 6/8 cache hits)** → the six-workflow kit.
 
-同一条 5 秒视频：官方教程的一般环境要 **20–30 分钟/镜**，本手册路线压到 **4.7 分钟（成片标准）/ 2.7 分钟（草稿快跑）/ 3.5 分钟（PDD+T8 极速草稿）**，**快 5–11 倍**——逐档耗时与数据口径见 [08](docs/08-t8-blockcache-4step.md)/[09](docs/09-pdd-backport.md)。
+The same 5-second clip: **20–30 min/clip** in a typical environment following the official tutorial, compressed to **4.7 min (final-shot standard) / 2.7 min (fast draft) / 3.5 min (PDD+T8 ultra draft)** — **5–11× faster**. Per-tier timings and data methodology: [08](docs/en/08-t8-blockcache-4step.md) / [09](docs/en/09-pdd-backport.md).
 
-## 这个仓库能给你什么
+## What This Repo Gives You
 
-- ✅ **可直接导入的六件套工作流**（t2v/i2v × 成片/草稿 + PDD 极速档×2），全部真机实测、附预览截图——见 [workflows/README](workflows/README.md)
-- ✅ **Python 库 `h3-turing`**：以上全部经验代码化——六件套预设、带重试纪律的 ComfyUI 客户端、A/B 基准框架、开工检查，零依赖（纯标准库）——见 [python/](python/README.md)
-- ✅ **13 条踩坑 FAQ**：v3 节点提交 400、同 seed 重跑失灵、空闲自退灭批、杀软拖慢 27 分钟、prompt_id 静默丢弃……每条都是真金白银踩出来的 → [06](docs/06-faq.md)
-- ✅ **提速路线判决全景**：SageAttention 崩溃全过程、T8 BlockCache −43% 实测、TE-Speed 永久排除——哪些路能走、哪些路死了，不用你再试一遍
-- ✅ **A/B 实测方法论**：同 seed 对照脚本拿来就能跑自己的实验 → [scripts/](scripts/)
+- ✅ **Six ready-to-import workflows** (t2v/i2v, each with a final-shot tier and a T8 fast-draft tier, plus a PDD ultra tier) — all verified on real hardware, with preview screenshots: [workflows/README](workflows/README.md)
+- ✅ **The Python library `h3-turing`**: all of the above codified - six tier presets, a retry-disciplined ComfyUI client, the A/B benchmark harness, pre-production checks. Zero dependencies (stdlib only) — see [python/](python/README.md)
+- ✅ **13 field-tested FAQ entries**: v3-node 400s on `/prompt`, same-seed re-runs diverging, idle auto-exit killing batches, antivirus slowing model loading by 27 minutes, silent prompt_id dedup drops… every one paid for in real time → [06](docs/en/06-faq.md)
+- ✅ **Verdict table for every speedup route**: the full SageAttention crash autopsy, T8 BlockCache measured at −43%, TE-Speed permanently ruled out — which roads work and which are dead, so you don't have to try them again
+- ✅ **A/B measurement methodology**: same-seed A/B control scripts ready to run for your own experiments → [scripts/](scripts/)
 
-## 增效路线图
+## The Optimization Roadmap
 
-### ✅ Phase 1 · 先跑通 —— 选对唯一可行的量化路线
+### ✅ Phase 1 · Get It Running — pick the only viable quantization route
 
-- [x] 硬件账：sm_75 无 BF16/FP8 张量核心、带宽 616 GB/s，天花板先算清 → [01](docs/01-hardware-limits.md)
-- [x] 量化判决：**DiT 必须 INT8（W4A8）**，W4A4 误差 18 倍、彩色撕裂 → [02](docs/02-w4a8-vs-w4a4.md)
-- [x] compat 降级版工作流（当时 T8 节点不可用），`workflows/` 直接可导入
+- [x] Hardware math: sm_75 has no BF16/FP8 tensor cores and 616 GB/s bandwidth — know the ceiling first → [01](docs/en/01-hardware-limits.md)
+- [x] Quantization verdict: **DiT must be INT8 (W4A8)**; W4A4 has 18× the reconstruction error and produces color tearing → [02](docs/en/02-w4a8-vs-w4a4.md)
+- [x] The compat (degraded) workflows — `workflows/` imports directly
 
-### ✅ Phase 2 · 跑得稳 —— 稳定性是提速的前提
+### ✅ Phase 2 · Keep It Stable — stability is the prerequisite for speed
 
-- [x] 启动参数防 TDR 黑屏 / OOM：`--reserve-vram 2.5 --vram-headroom 0.5 --disable-pinned-memory` → [scripts/](scripts/)
-- [x] 杀软实时防护拖慢模型加载 27 分钟 → 跑前关跑后开 + 断点续跑兜底 → [06](docs/06-faq.md)
-- [x] prompt_id 去重、队列残留、大文件下载等 10 个坑清障 → [06](docs/06-faq.md)
-- [x] 分辨率补足：640×352 生成 → RTX VSR 抽帧超分 1080p（47ms/帧）
+- [x] Launch flags against TDR black-screens / OOM: `--reserve-vram 2.5 --vram-headroom 0.5 --disable-pinned-memory` → [scripts/](scripts/)
+- [x] Antivirus real-time scanning slowing model loading by 27 minutes → disable while rendering, re-enable after, plus a resume-from-checkpoint fallback → [06](docs/en/06-faq.md)
+- [x] Ten more pitfalls cleared: prompt_id dedup, queue residue, big-file downloads → [06](docs/en/06-faq.md)
+- [x] Resolution top-up: generate at 640×352 → RTX VSR frame upscale to 1080p (47 ms/frame)
 
-### ✅ Phase 3 · 提速研究 —— 每条路都试到出判决为止
+### ✅ Phase 3 · Speed Research — every route tested until it has a verdict
 
-- [x] **cu130 反量化红利**：kitchen CUDA 后端满血启用——这正是 5.7 分钟 vs 官方 20–30 分钟的根因，老 torch 用户先查运行时再怀疑显卡 → [01](docs/01-hardware-limits.md)
-- [x] SageAttention：Triton INT8 内核 sm_75 全版本编译失败；CUDA 内核孤立能跑、接管线原生崩溃 → **判死**，已完整回滚 → [03](docs/03-sageattention-crash.md)
-- [x] TE-Speed：短步数下语义崩坏 → **永久排除**，等新版也救不回来 → [06](docs/06-faq.md)
-- [x] **T8 BlockCache 真机实测：激进档 −43% = 2.7 分钟/镜**；纠正「需 ComfyUI ≥0.34」误判（v0.33.1 即可用）；默认参数在 4 步路线上 0 命中属负优化；代价 = 同 seed 不可复现 → 草稿用、成片不用 → [08](docs/08-t8-blockcache-4step.md)
+- [x] **The cu130 dequantization bonus**: the comfy-kitchen CUDA backend fully enabled — this is the root cause of 5.7 min vs the official 20–30 min. If W4A8 is absurdly slow on your box, check your runtime before blaming the GPU → [01](docs/en/01-hardware-limits.md)
+- [x] SageAttention: Triton INT8 kernels fail to compile on sm_75 across all triton versions; the CUDA kernel runs standalone but crashes natively in the real pipeline → **ruled out**, fully rolled back → [03](docs/en/03-sageattention-crash.md)
+- [x] TE-Speed: semantic collapse at short step counts → **permanently ruled out**, no new version will save it → [06](docs/en/06-faq.md)
+- [x] **T8 BlockCache on real hardware: aggressive tier −43% = 2.7 min/clip**; corrected the "requires ComfyUI ≥0.34" misdiagnosis (v0.33.1 works); default params are a negative optimization on the 4-step route (0 hits); the cost = same-seed runs are no longer reproducible → drafts yes, final shots no → [08](docs/en/08-t8-blockcache-4step.md)
 
-### ✅ Phase 4 · 提速终局 —— PDD 不等官方，自己移植落地（9-03）
+### ✅ Phase 4 · The Endgame — PDD, ported without waiting for the official release (Sep 3)
 
-- [x] **PDD LoRA master backport**（不等 v0.34.1+）：单文件不够→全量升级三坑全解（comfy_api 盲区/PyAV/T8 签名）→ **PDD 8步 600s 可复现 + PDD8+T8 组合 210s（-34%）命中 6/8** → [09](docs/09-pdd-backport.md)
-- [x] T8 节点 master 兼容补丁（FinalLayer 7 参签名自适应），待回馈上游
-- [ ] PDD vs Turbo 成片画质盲测；Ref2VA（i2v）版 PDD 待测
+- [x] **PDD LoRA master backport** (no waiting for v0.34.1+): single-file wasn't enough → full upgrade with three pitfalls solved (the comfy_api blind spot / PyAV / the T8 signature) → **PDD 8-step at 600 s reproducible, and PDD+T8 combo at 210 s (−34%) with 6/8 hits** → [09](docs/en/09-pdd-backport.md)
+- [x] T8 node master-compat patch (self-adapting to the 7-arg FinalLayer signature), upstream feedback pending
+- [ ] PDD vs Turbo final-shot quality blind test; Ref2VA (i2v) PDD variant pending
 
-### 💡 Phase 5 · 观望池
+### 💡 Phase 5 · Watchlist
 
-- [ ] H3 Max（fal.ai 联合后训练版）：**API 专属无开源权重**，本地不可用；关键镜头可付费走 API，本地党等开源跟进 → [07](docs/07-upgrade-watch.md)
+- [ ] H3 Max (fal.ai post-trained edition): **API-only, no open weights** — unusable locally; pay per clip for critical shots, wait for an open follow-up → [07](docs/en/07-upgrade-watch.md)
 
-## 文档目录
+## Documentation
 
-| 文档 | 内容 |
+| Doc | Contents |
 |---|---|
-| [01 硬件先天限制](docs/01-hardware-limits.md) | sm_75 缺什么、带宽差距、cu130 红利、为什么 W4A8 是唯一路线 |
-| [02 量化路线实测](docs/02-w4a8-vs-w4a4.md) | W4A4 vs W4A8 误差数据、产线速度、社区同款卡成绩 |
-| [03 SageAttention 崩溃实录](docs/03-sageattention-crash.md) | 2.2.0 wheel 接入管线崩溃 → 定位 → 回滚验证全过程 |
-| [04 社区经验验证](docs/04-community-tips.md) | 可直接抄的三点 + 适用条件 |
-| [05 工作流说明](docs/05-workflows.md) | compat t2v/i2v 工作流导入与占位符替换 |
-| [06 踩坑 FAQ](docs/06-faq.md) | 13 条：v3 节点 400、同 seed 失灵、空闲自退、杀软拖慢、prompt_id 去重、TE-Speed 排除、音频削波 |
-| [07 升级窗口追踪](docs/07-upgrade-watch.md) | 提速路线判决全景、v0.34 评估、PDD LoRA #15908、T8 官方开源 |
-| [08 T8 四步实测](docs/08-t8-blockcache-4step.md) | 43% 提速实测：默认参数零命中、激进档 2.7 分钟/镜、同 seed 复现性代价 |
-| [09 PDD 提前落地](docs/09-pdd-backport.md) | 不等 release 的 master backport 实录：PDD8+T8 组合 **210s（-34%）命中 6/8**，三坑全解 |
-| [10 基准数据总表](docs/10-benchmarks.md) | 全部实测一张表：t2v/i2v 各档、命中矩阵、机理常数、音频、版本对比、判死路线 |
-| [workflows/](workflows/README.md) | 六件套（附预览截图）：t2v/i2v × 成片/草稿 + PDD 极速档，含导入指南 |
-| [scripts/](scripts/) | 防黑屏启动参数、T8/PDD A/B 实验脚本 |
+| [01 Hardware limits](docs/en/01-hardware-limits.md) | What sm_75 lacks, the bandwidth gap, the cu130 bonus, why W4A8 is the only route |
+| [02 W4A8 vs W4A4](docs/en/02-w4a8-vs-w4a4.md) | Error data, production speed, another card's benchmark |
+| [03 SageAttention crash autopsy](docs/en/03-sageattention-crash.md) | The 2.2.0 wheel pipeline crash → root-cause hunt → rollback verification |
+| [04 Community tips verified](docs/en/04-community-tips.md) | Three directly-copyable tips + their applicability conditions |
+| [05 Workflows](docs/en/05-workflows.md) | compat t2v/i2v import, placeholder replacement, model download list |
+| [06 FAQ](docs/en/06-faq.md) | 13 entries: v3-node 400s, same-seed divergence, idle auto-exit, antivirus, prompt_id dedup, TE-Speed, audio clipping |
+| [07 Upgrade-window watch](docs/en/07-upgrade-watch.md) | The full route verdict table, v0.34 assessment, PDD LoRA #15908, official T8 open-sourcing |
+| [08 T8 on the 4-step route](docs/en/08-t8-blockcache-4step.md) | The −43% measurement: zero hits at defaults, 2.7 min/clip aggressive, the same-seed reproducibility cost |
+| [09 PDD without waiting](docs/en/09-pdd-backport.md) | The master backport field report: PDD8+T8 **210 s (−34%), 6/8 hits**, three pitfalls solved |
+| [10 Benchmark dataset](docs/en/10-benchmarks.md) | Every measurement on one page: all tiers, the hit matrix, mechanism constants, audio, version deltas, ruled-out routes |
+| [workflows/](workflows/README.md) | The six-workflow kit (with previews): t2v/i2v × final/draft + PDD ultra tiers, with import guide |
+| [scripts/](scripts/) | Anti-black-screen launch template, T8 A/B harness, chart regen script |
 
-## 复现环境
+## Reproduction Environment
 
-- GPU：2080Ti 22G 魔改（Turing，sm_75）
-- ComfyUI：v0.33.1（H3 W4A8 路线已内置原生 AV 采样修复）
-- 路线：h3lite W4A8 compat + fl2v Turbo 4step LoRA（T8 草稿档可选，见 [08](docs/08-t8-blockcache-4step.md)）
+- GPU: 2080Ti 22G mod (Turing, sm_75)
+- ComfyUI: v0.33.1 baseline (the handbook also documents a full upgrade to master for PDD — see [09](docs/en/09-pdd-backport.md))
+- Route: h3lite W4A8 compat + fl2v Turbo 4-step LoRA (optional T8 draft tier, see [08](docs/en/08-t8-blockcache-4step.md))
+
+## Mirrors
+
+| Platform | URL |
+|---|---|
+| Gitee (primary) | https://gitee.com/IvenKooLab/minimax-h3-turing |
+| GitHub | https://github.com/IvenKooLab/minimax-h3-turing |
+
+Both are auto-synced (Gitee is the authoritative source).
 
 ## License
 

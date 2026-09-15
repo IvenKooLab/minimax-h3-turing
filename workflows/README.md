@@ -1,83 +1,84 @@
-# Workflows · 可直接导入的六件套
+# Workflows · The Six-Workflow Kit, Ready to Import
 
-全部在本机 2080Ti 22G + ComfyUI v0.33.1 + W4A8 mixed 权重上实测验证（同晚同 seed A/B，t2v 于 09-01、i2v 于 09-02）。
+All verified on a 2080Ti 22G + ComfyUI + W4A8 mixed weights (same-night, same-seed A/B: t2v on Sep 1, i2v on Sep 2, PDD on Sep 3).
 
-| 工作流 | 用途 | 单镜实测 |
+| Workflow | Purpose | Measured |
 |---|---|---|
-| [t2v 成片档](#1-文生视频--成片档) | 一切进正片的镜头 | 280 s（4.7 min） |
-| [t2v 草稿快跑档](#2-文生视频--草稿快跑档-t8--43) | 试 prompt / 选镜头方向 | 160 s（2.7 min，**-43%**） |
-| [i2v 成片档](#3-图生视频--首帧锚定锁脸) | 锁脸 / 画面续接·正片 | 420 s（7.0 min） |
-| [i2v 草稿快跑档](#4-图生视频--草稿快跑档-t8--38) | 锁脸镜头的草稿预览 | 260 s（4.3 min，**-38%**） |
-| [i2v PDD8+T8 极速草稿](#6-图生视频--pdd8t8-极速草稿-192s--master-环境) | 锁脸·最快且最高画质 | **192 s（-51%）** |
-| [t2v PDD8+T8 极速草稿](#5-文生视频--pdd8t8-极速草稿-210s--master-环境) | 最快且画质最高的草稿 | **210 s（-34% vs Turbo）** |
+| [t2v final tier](#1-t2v--final-shot-tier) | everything that enters the cut | 280 s (4.7 min) |
+| [t2v fast-draft tier](#2-t2v--fast-draft-tier-t8--43) | prompt iteration / shot selection | 160 s (2.7 min, **−43%**) |
+| [i2v final tier](#3-i2v--first-frame-anchoring-face-lock) | face lock / continuation · final | 420 s (7.0 min) |
+| [i2v fast-draft tier](#4-i2v--fast-draft-tier-t8--38) | drafts for face-locked shots | 260 s (4.3 min, **−38%**) |
+| [i2v PDD8+T8 ultra draft](#6-i2v--pdd8t8-ultra-draft-192-s--master-only) | face lock · fastest and highest quality | **192 s (−51%)** |
+| [PDD8+T8 ultra draft](#5-t2v--pdd8t8-ultra-draft-210-s--master-only) | fastest AND highest-quality drafts | **210 s (−34% vs Turbo)** |
 
 ---
 
-## 1. 文生视频 · 成片档
+## 1. t2v · Final-Shot Tier
 
 ![t2v final](preview/t2v_final.jpg)
 
-**文件**：[h3_w4a8_t2v_compat_api.json](h3_w4a8_t2v_compat_api.json) · **实测 280 s/镜**
+**File**: [h3_w4a8_t2v_compat_api.json](h3_w4a8_t2v_compat_api.json) · **280 s/clip**
 
-无 T8，同 seed **可复现**——失败镜头可原样重提、审片结果可重现。**一切要进正片的镜头用它。**
+No T8 — same-seed **reproducible**: failed shots can be re-submitted identically and review results hold. **Use this for everything that enters the cut.**
 
-## 2. 文生视频 · 草稿快跑档（T8，-43%）
+## 2. t2v · Fast-Draft Tier (T8, −43%)
 
 ![t2v draft](preview/t2v_draft.jpg)
 
-**文件**：[h3_w4a8_t2v_t8draft_api.json](h3_w4a8_t2v_t8draft_api.json) · **实测 160 s/镜**
+**File**: [h3_w4a8_t2v_t8draft_api.json](h3_w4a8_t2v_t8draft_api.json) · **160 s/clip**
 
-T8 BlockCache 阈值 1.0，快 43%。**同 seed 不可复现**（缓存命中改变采样轨迹）→ 只用于试 prompt / 选镜头方向，选中的是"方向"不是成片。依据见 [docs/08](../docs/08-t8-blockcache-4step.md)。
+T8 BlockCache at threshold 1.0, 43% faster. **Not same-seed reproducible** (cache hits fork the sampling trajectory) → for prompt iteration and shot selection only; what you pick is a "direction", not the final. Full analysis: [docs/08](../docs/en/08-t8-blockcache-4step.md).
 
-> **上面两张预览图是同一个 seed（3013）、同一条提示词生成的**——这正是 T8 的核心特性：轨迹分叉，产出**同质量、不同画面**（构图/细节/光影同级，内容有偏移）。含义：草稿档选的是「这个 prompt 大概出什么方向」，成片档重跑得到可复现的正式镜头。
+> **The two preview images above were generated from the same seed (3013) and the same prompt** — that is T8's core trait: the trajectory forks, producing an **equal-quality but different** picture (composition, detail and lighting all intact; the content shifts). In practice: the draft tier tells you "what this prompt roughly looks like"; the final tier re-renders a reproducible shot for the cut.
 
-## 3. 图生视频 · 首帧锚定（锁脸）· 成片档
+## 3. i2v · First-Frame Anchoring (face lock) · Final Tier
 
 ![i2v](preview/i2v.jpg)
 
-**文件**：[h3_w4a8_i2v_compat_api.json](h3_w4a8_i2v_compat_api.json) · **实测 420 s/镜（热跑）**
+**File**: [h3_w4a8_i2v_compat_api.json](h3_w4a8_i2v_compat_api.json) · **420 s/clip (warm)**
 
-需要一个首帧图（角色标准帧/已验收镜头抽帧），`Picture 1 is fully referenced` 锚定——脸一致率显著高于纯文生视频。同 seed 可复现。仓库用默认首帧占位，导入后换成你自己的图。
+Needs a first frame (a character reference frame or a frame extracted from an approved shot) — face consistency is markedly better than pure t2v. Same-seed reproducible. The repo ships a placeholder; point it at your own image.
 
-## 4. 图生视频 · 草稿快跑档（T8，-38%）
+## 4. i2v · Fast-Draft Tier (T8, −38%)
 
 ![i2v draft](preview/i2v_draft.jpg)
 
-**文件**：[h3_w4a8_i2v_t8draft_api.json](h3_w4a8_i2v_t8draft_api.json) · **实测 260 s/镜**
+**File**: [h3_w4a8_i2v_t8draft_api.json](h3_w4a8_i2v_t8draft_api.json) · **260 s/clip**
 
-锁脸镜头的草稿预览：快 38%，**绝对省 160s/镜比 t2v 草稿档（省 120s）更多**——镜头越贵 T8 省得越多。用法与铁律同 t2v 草稿档：只看方向，成片用成片档重跑。
+Drafts for face-locked shots: 38% faster, and the **absolute saving (160 s/clip) beats the t2v draft tier's 120 s** — the pricier the shot, the more T8 saves. Same rules as the t2v draft tier: directions only; re-render finals on the final tier.
 
-## 5. 文生视频 · PDD8+T8 极速草稿（210s，master 环境）
+## 5. t2v · PDD8+T8 Ultra Draft (210 s, master only)
 
 ![pdd8 t8](preview/pdd8_t8.jpg)
 
-**文件**：[h3_w4a8_t2v_pdd8_t8_api.json](h3_w4a8_t2v_pdd8_t8_api.json) · **实测 210 s/镜（-34% vs Turbo，命中 6/8）**
+**File**: [h3_w4a8_t2v_pdd8_t8_api.json](h3_w4a8_t2v_pdd8_t8_api.json) · **210 s/clip (−34% vs Turbo, 6/8 hits)**
 
-PDD 官方蒸馏 LoRA（8 步）+ T8 缓存的组合拳：**目前最快档，同时画质最高**（8 步蒸馏 > 4 步社区 Turbo 的官方对比结论）。前置要求比前四件多两样：① ComfyUI **master 环境**（backport 方法见 [docs/09](../docs/09-pdd-backport.md)，或等 v0.34.1+）② PDD 权重（`Kijai/MiniMax-H3-experimental` 仓 loras/ 下载）③ T8 节点包需打 docs/09 的 master 兼容补丁。同 seed 不可复现（草稿专用）；要 PDD 画质的可复现成片，去掉 T8 节点跑纯 8 步（600s）。
+The official PDD distilled LoRA (8-step) combined with the T8 cache: **currently the fastest tier and the highest quality** (the official 8-step distillation beats the community 4-step Turbo in blind comparison pending; official materials already show parity-or-better). Extra prerequisites: ① a ComfyUI **master environment** (backport recipe in [docs/09](../docs/en/09-pdd-backport.md), or wait for v0.34.1+) ② the PDD weights (download from the `Kijai/MiniMax-H3-experimental` repo, `loras/`) ③ the T8 node pack with the master-compat patch from docs/09. Not same-seed reproducible (drafts only); for reproducible PDD-quality finals, drop the T8 node and run pure 8-step (600 s).
 
-## 6. 图生视频 · PDD8+T8 极速草稿（192s，master 环境）
+## 6. i2v · PDD8+T8 Ultra Draft (192 s, master only)
 
 ![i2v pdd8 t8](preview/i2v_pdd8_t8.jpg)
 
-**文件**：[h3_w4a8_i2v_pdd8_t8_api.json](h3_w4a8_i2v_pdd8_t8_api.json) · **实测 192 s/镜（-51%，命中 6/8）**
+**File**: [h3_w4a8_i2v_pdd8_t8_api.json](h3_w4a8_i2v_pdd8_t8_api.json) · **192 s/clip (−51%, 6/8 hits)**
 
-锁脸镜头的终极草稿档：全项目最快纪录。前置与第 5 节相同（master 环境 + PDD 权重 + T8 补丁），LoRA 换 Ref2VA 版。同 seed 不可复现；要可复现的 Ref2VA 成片，去掉 T8 跑纯 8 步（933s）。
+The ultimate draft tier for face-locked shots — the fastest record in this project. Same prerequisites as section 5 (master environment + PDD weights + the T8 patch), with the Ref2VA LoRA. Not same-seed reproducible; for reproducible Ref2VA finals drop the T8 node and run pure 8-step (933 s).
 
 ---
 
-## 导入三步
+## Import in Three Steps
 
-1. ComfyUI 界面拖入 JSON，或放到 `user/default/workflows/`
-2. 把文本节点的 `__H3_PROMPT__` 占位符换成你的提示词（i2v 另需换首帧加载节点）
-3. 核对模型文件名与你本地 `models/` 一致（不同时间下载的 W4A8 权重命名带不同 hash 后缀，改成本地的名字即可）
+1. Drag the JSON into the ComfyUI UI, or drop it in `user/default/workflows/`
+2. Replace the `__H3_PROMPT__` placeholder in the prompt node with your prompt (i2v: also swap the first-frame loader)
+3. Check the model file names against your local `models/` (W4A8 weight file names differ between download eras — rename to match)
 
-## 前置依赖
+## Prerequisites
 
-- 模型组：W4A8 mixed DiT + 双 VAE（video fp16 / audio fp32）+ qwen3vl_4b text encoder + ClipProj + fl2v Turbo 4step LoRA（清单见 [docs/05](../docs/05-workflows.md)）
-- **草稿档额外需要**：[T8mars/comfyui-minimax-h3-blockcache-T8](https://github.com/T8mars/comfyui-minimax-h3-blockcache-T8) 节点包（装到 `custom_nodes/` 重启即注册，v0.33.1 可用——无需升级 ComfyUI）
-- 启动参数（防 TDR/OOM）：`--reserve-vram 2.5 --vram-headroom 0.5 --disable-pinned-memory`，模板见 [scripts/h3_launch.example.sh](../scripts/h3_launch.example.sh)
+- Model set: W4A8 mixed DiT + dual VAE (video fp16 / audio fp32) + qwen3vl_4b text encoder + ClipProj + fl2v Turbo 4-step LoRA (full list with links: [docs/05](../docs/en/05-workflows.md))
+- **Fast-draft tiers additionally need**: the [T8mars/comfyui-minimax-h3-blockcache-T8](https://github.com/T8mars/comfyui-minimax-h3-blockcache-T8) node pack (drop into `custom_nodes/`, restart; works on v0.33.1 — no ComfyUI upgrade required)
+- **The PDD ultra tier additionally needs**: a master-environment ComfyUI + the PDD weights + the T8 master-compat patch ([docs/09](../docs/en/09-pdd-backport.md))
+- Launch flags (against TDR/OOM): `--reserve-vram 2.5 --vram-headroom 0.5 --disable-pinned-memory` — template at [scripts/h3_launch.example.sh](../scripts/h3_launch.example.sh)
 
-## 两个已知的坑（草稿档必读）
+## Two Known Traps (read before the draft tiers)
 
-1. **T8 节点是 v3 API 节点**：在 ComfyUI 界面里手拖参数没问题，但如果你用 `/prompt` API 提交，**全部 8 个输入必须显式给全**——v3 节点不走服务端默认值，缺一个就 400 `required_input_missing`（工作流 JSON 里已全部显式写好，直接用不会踩）。
-2. **默认阈值 0.12 在 4 步路线是负优化**：0 次命中还白付缓存管理开销（实测 290s vs 280s）。别手贱改回默认值——想要 4 步提速就得 1.0，机理与数据见 [docs/08](../docs/08-t8-blockcache-4step.md)。
+1. **The T8 node is a v3-API node**: dragging it in the ComfyUI UI is fine, but submissions over the `/prompt` API must pass **all 8 inputs explicitly** — v3 nodes get no server-side defaults; miss one and it's a 400 `required_input_missing`. (The workflow JSONs here are already fully explicit — importing them directly is safe.)
+2. **The default threshold 0.12 is a negative optimization on the 4-step route**: zero hits plus 175 MB of cache overhead (measured 290 s vs 280 s). Don't "fix" it back to defaults — for a 4-step speedup you want 1.0. Why: [docs/08](../docs/en/08-t8-blockcache-4step.md).
