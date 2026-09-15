@@ -52,6 +52,8 @@ except TypeError:
 
 关键点：**hit 路径必须把 `sample_sigmas` 传给 final_layer**——PDD 的 head bank 靠它找当前 sigma 区间做输出头混合，不传的话缓存命中会输出错乱的 bank 结果。
 
+**后续（9-15）**：上游已发布 **v1.0.4**（commit `36336dc`），用显式签名检测（`inspect.signature(FinalLayer.forward)`）正式实现了该兼容——本页补丁作废，升级节点包即可。回归实测：PDD 8步+T8 = **190s、6/8 命中**（优于手补丁版 210s），issue #4 回归验证后关闭。
+
 ## 数据与机理
 
 - 8 步给 T8 的命中窗口是 6/8（首步 warmup 必算 + 1 步 refresh），实测正好 **cached 6/8**
@@ -85,5 +87,5 @@ except TypeError:
 
 - PDD vs Turbo 的**成片画质 A/B 盲测**（同 seed 8 步 vs 4 步目检打分）进行中——决定成片档是否整体切换
 - ~~Ref2VA 版 PDD（i2v 路线）未测~~ ✅ 9-04 已测：见上文
-- ~~T8 适配补丁待回馈上游~~ ✅ 已追评 T8mars issue #4（9-03）；转 PR 待作者响应
+- ~~T8 适配补丁待回馈上游~~ ✅ 完全闭环（9-15）：上游 v1.0.4 正式修复（显式签名检测），issue #4 回归验证后关闭
 - master 环境 Turbo 基线慢 14%（320 vs 280s）的原因：**9-04 补测发现是 t2v 路径特有**——i2v 在 master 上反而快 5%（417→395s），嫌疑收敛到 t2v 侧的转码/封装路径

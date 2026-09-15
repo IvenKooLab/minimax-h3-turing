@@ -53,7 +53,7 @@ T8 BlockCache 阈值 1.0，快 43%。**同 seed 不可复现**（缓存命中改
 
 **文件**：[h3_w4a8_t2v_pdd8_t8_api.json](h3_w4a8_t2v_pdd8_t8_api.json) · **实测 210 s/镜（-34% vs Turbo，命中 6/8）**
 
-PDD 官方蒸馏 LoRA（8 步）+ T8 缓存的组合拳：**目前最快档，同时画质最高**（8 步蒸馏 > 4 步社区 Turbo 的官方对比结论）。前置要求比前四件多两样：① ComfyUI **master 环境**（backport 方法见 [docs/09](../docs/09-pdd-backport.md)，或等 v0.34.1+）② PDD 权重（`Kijai/MiniMax-H3-experimental` 仓 loras/ 下载）③ T8 节点包需打 docs/09 的 master 兼容补丁。同 seed 不可复现（草稿专用）；要 PDD 画质的可复现成片，去掉 T8 节点跑纯 8 步（600s）。
+PDD 官方蒸馏 LoRA（8 步）+ T8 缓存的组合拳：**目前最快档，同时画质最高**（8 步蒸馏 > 4 步社区 Turbo 的官方对比结论）。前置要求比前四件多两样：① ComfyUI **master 环境**（backport 方法见 [docs/09](../docs/09-pdd-backport.md)，或等 v0.34.1+）② PDD 权重（`Kijai/MiniMax-H3-experimental` 仓 loras/ 下载）③ T8 节点包 ≥ v1.0.4（原生兼容 master，无需手动补丁）。同 seed 不可复现（草稿专用）；要 PDD 画质的可复现成片，去掉 T8 节点跑纯 8 步（600s）。
 
 ## 6. 图生视频 · PDD8+T8 极速草稿（192s，master 环境）
 

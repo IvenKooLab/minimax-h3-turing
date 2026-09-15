@@ -53,7 +53,7 @@ Drafts for face-locked shots: 38% faster, and the **absolute saving (160 s/clip)
 
 **File**: [h3_w4a8_t2v_pdd8_t8_api.json](h3_w4a8_t2v_pdd8_t8_api.json) · **210 s/clip (−34% vs Turbo, 6/8 hits)**
 
-The official PDD distilled LoRA (8-step) combined with the T8 cache: **currently the fastest tier and the highest quality** (the official 8-step distillation beats the community 4-step Turbo in blind comparison pending; official materials already show parity-or-better). Extra prerequisites: ① a ComfyUI **master environment** (backport recipe in [docs/09](../docs/en/09-pdd-backport.md), or wait for v0.34.1+) ② the PDD weights (download from the `Kijai/MiniMax-H3-experimental` repo, `loras/`) ③ the T8 node pack with the master-compat patch from docs/09. Not same-seed reproducible (drafts only); for reproducible PDD-quality finals, drop the T8 node and run pure 8-step (600 s).
+The official PDD distilled LoRA (8-step) combined with the T8 cache: **currently the fastest tier and the highest quality** (the official 8-step distillation beats the community 4-step Turbo in blind comparison pending; official materials already show parity-or-better). Extra prerequisites: ① a ComfyUI **master environment** (backport recipe in [docs/09](../docs/en/09-pdd-backport.md), or wait for v0.34.1+) ② the PDD weights (download from the `Kijai/MiniMax-H3-experimental` repo, `loras/`) ③ T8 node pack >= v1.0.4 (master-compatible out of the box; older packs need the patch in docs/09). Not same-seed reproducible (drafts only); for reproducible PDD-quality finals, drop the T8 node and run pure 8-step (600 s).
 
 ## 6. i2v · PDD8+T8 Ultra Draft (192 s, master only)
 

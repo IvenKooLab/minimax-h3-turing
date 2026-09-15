@@ -24,6 +24,7 @@
 | Sep 3 | master | Turbo 4-step | 4 | ✗ | 320 s | baseline (master) | [09](09-pdd-backport.md) |
 | Sep 3 | master | **PDD FL2VA** | 8 | ✗ | 600 s | reproducible + distilled quality | 09 |
 | Sep 3 | master | **PDD FL2VA** | 8 | **threshold 1.0** | **210 s** | **−34% vs master baseline** (6/8 hits) | 09 |
+| Sep 15 | master | PDD FL2VA | 8 | threshold 1.0 (**upstream v1.0.4 regression check**) | **190 s** | 6/8 hits, same tier as 210 s | 09 |
 
 ## i2v (image-to-video / face lock) — Every Tier
 

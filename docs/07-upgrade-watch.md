@@ -69,7 +69,7 @@
 
 ## 时效性情报（2026-09-01 核查）
 
-- **T8 双时钟采样器官方已开源**（hailuoai.com/h3-open），官方宣称 +100%——但它依赖 v3 Layers API，Turing 能不能吃上要看实现，升级窗口里一并验证。节点包（T8mars/comfyui-minimax-h3-blockcache-T8）最新 commit 2026-08-24，已装的是最新版
+- **T8 双时钟采样器官方已开源**（hailuoai.com/h3-open），官方宣称 +100%——但它依赖 v3 Layers API，Turing 能不能吃上要看实现，升级窗口里一并验证。节点包 **v1.0.4**（9-07 发布）正式兼容 master 的 FinalLayer 七参数签名（显式签名检测，修复我们 9-03 报告的断裂；issue #4 已回归验证关闭）
 - **SageAttention 无新版**：最新 tag 仍为 v2.2.0（即 sm_75 实测崩溃的版本），重验只能等它或 triton 上游发新——升级窗口顺手试
 - **DualClockSampler 已退役化**：ComfyUI ≥ commit `bdcb886` 原生处理 H3 AV 采样，该插件只剩兼容旧工作流的作用（上游 8-07 已合并 native-av-compat，本地已装最新版）
 - **仓库已转移到 Comfy-Org**：comfyanonymous/ComfyUI → Comfy-Org/ComfyUI（API 301）——jsdelivr 升级路径本就用 `gh/Comfy-Org/ComfyUI`，零影响

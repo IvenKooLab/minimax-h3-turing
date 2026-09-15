@@ -52,6 +52,8 @@ except TypeError:
 
 The subtle part: **the hit path must pass `sample_sigmas` to final_layer** — the PDD head bank needs it to locate the current sigma interval for output-head blending; omit it and cache hits silently produce garbled bank results.
 
+**Follow-up (Sep 15)**: upstream shipped **v1.0.4** (commit `36336dc`) implementing this compatibility properly via explicit signature detection (`inspect.signature(FinalLayer.forward)`) — the patch on this page is superseded; just upgrade the node pack. Regression run: PDD 8-step + T8 = **190 s, 6/8 hits** (better than 210 s with my hand patch); issue #4 verified and closed.
+
 ## Data and Mechanism
 
 - 8 steps give T8 a 6/8 hit window (step 1 warm-up is mandatory + one refresh); measured exactly **cached 6/8**
@@ -85,5 +87,5 @@ Three takeaways: ① **192 s is the fastest record in this entire project** — 
 
 - The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale
 - ~~The Ref2VA PDD variant (i2v route) untested~~ ✅ tested Sep 4 — see above
-- ~~The T8 compatibility patch pending upstream feedback~~ ✅ posted as a follow-up on T8mars issue #4 (Sep 3); PR pending author response
+- ~~The T8 compatibility patch pending upstream feedback~~ ✅ fully closed (Sep 15): upstream v1.0.4 fixed it properly via explicit signature detection; issue #4 re-verified (190 s, 6/8 hits) and closed
 - Why the Turbo baseline is 14% slower on master (320 vs 280 s): **the Sep 4 re-test shows it is t2v-specific** — i2v is 5% faster on master (417→395 s); suspicion narrows to the t2v-side transcode/packaging path

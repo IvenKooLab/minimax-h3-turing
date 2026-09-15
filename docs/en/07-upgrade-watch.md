@@ -71,7 +71,7 @@ While everything is green, don't operate.
 
 ## Timeliness Notes (verified 2026-09-01)
 
-- **The T8 dual-clock sampler was officially open-sourced** (hailuoai.com/h3-open), officially claimed +100% — but it needs the v3 Layers API, and whether Turing benefits depends on the implementation; verify at the upgrade window. The node pack (T8mars/comfyui-minimax-h3-blockcache-T8) latest commit 2026-08-24 — what's installed here is current
+- **The T8 dual-clock sampler was officially open-sourced** (hailuoai.com/h3-open), officially claimed +100% — but it needs the v3 Layers API, and whether Turing benefits depends on the implementation; verify at the upgrade window. Node pack **v1.0.4** (released Sep 7) is officially master-compatible — explicit signature detection fixes the FinalLayer break we reported (issue #4 verified and closed)
 - **No new SageAttention**: the latest tag is still v2.2.0 (the version measured crashing on sm_75); re-testing must wait for upstream or a new triton-windows — try again at the upgrade window
 - **DualClockSampler is retired**: ComfyUI ≥ commit `bdcb886` handles H3 AV sampling natively; the plugin only remains for old-workflow compatibility (upstream merged native-av-compat on Aug 7; latest version installed here)
 - **The repo moved to Comfy-Org**: comfyanonymous/ComfyUI → Comfy-Org/ComfyUI (API 301) — the jsdelivr upgrade path already used `gh/Comfy-Org/ComfyUI`, zero impact
