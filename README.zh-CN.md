@@ -3,6 +3,7 @@
 [English](README.md) | 简体中文
 
 [![Featured in awesome-minimax-h3-integration](https://img.shields.io/badge/featured_in-awesome--minimax--h3--integration-8A2BE2?logo=githubsponsors&logoColor=white)](https://github.com/MiniMax-AI/awesome-minimax-h3-integration)
+[![Gitee Stars](https://gitee.com/IvenKooLab/minimax-h3-turing/badge/star.svg?theme=dark)](https://gitee.com/IvenKooLab/minimax-h3-turing)
 
 **在 2080Ti 22G 魔改卡（Turing / sm_75）上跑通 MiniMax H3 本地视频生成的实测手册。**
 
