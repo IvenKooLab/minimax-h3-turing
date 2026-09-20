@@ -83,6 +83,21 @@ Three takeaways: ① **192 s is the fastest record in this entire project** — 
 
 > ⚠️ Every PDD tier requires a master environment (this page's backport, or a future v0.34.1+). On 0.33.1, use the four-workflow [kit](../workflows/README.md).
 
+## Warning (Sep 20): PDD LoRA loading has been broken by environment deps since ~Sep 6
+
+**Discovery**: after rembg was installed on Sep 6, the PDD LoRA's adaln_proj layers began
+failing to load silently (ERROR lora - deltas never apply while rendering continues).
+**The Sep-15 "190 s, 6/8 hits" regression run on this page was most likely a phantom-PDD
+run** (loading errors were not checked that day - lesson recorded); the Sep-3 (210 s) and
+Sep-4 (192 s) figures predate the contamination and remain credible, though re-verification
+after the fix is advised. Root cause (stack-verified): ComfyUI's cast path invokes the LoRA
+patch while the weight is still in its quantized packed shape ([96768, 8] instead of the
+logical [96768, 2688]) - reported upstream as
+**[Comfy-Org/ComfyUI#16420](https://github.com/Comfy-Org/ComfyUI/issues/16420)** with the
+full stack and repro. The v0.36.0 H3 key-map fix does not cover this. In the same window,
+a Sep-19 rapidocr install also zeroed T8 cache hits (a separate contamination; mechanism
+under investigation).
+
 ## Open Items
 
 - The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale
