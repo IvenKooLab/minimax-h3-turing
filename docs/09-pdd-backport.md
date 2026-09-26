@@ -87,6 +87,8 @@ except TypeError:
 
 **发现**：9-06 装 rembg 后，PDD LoRA 的 adaln_proj 层开始静默加载失败（ERROR lora，delta 不生效但渲染照常）——**本页 9-15 的 190s/6-8 回归数据大概率是「LoRA 未生效的假 PDD 跑」**（当时未查加载错误，教训）；9-03 的 210s 与 9-04 的 192s 数据在时间窗内（污染前），仍可信但建议修复后复核。根因（堆栈实锤）：ComfyUI ops 的 cast 路径在权重仍为量化 packed 形态时调用 LoRA patch（[96768,8] vs 逻辑 [96768,2688]），已上报上游 **[Comfy-Org/ComfyUI#16420](https://github.com/Comfy-Org/ComfyUI/issues/16420)**（含完整堆栈与复现）。v0.36.0 的 H3 key-map 修复不覆盖此问题；同窗口 9-19 装 rapidocr 后 T8 命中亦归零（另一独立污染，机理待查）。
 
+**上游进展（9-20）**：Comfy-Org 协作者 Kaustubh1235 当日确认根因方向并追问影响面 → 已回帖**逐层普查**（[issuecomment-5758468110](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-5758468110)）：同一份 W4A8 权重上**仅 adaln_proj 报错**；attn.out_proj / qkv_proj / mlp.fc1 / fc2 **静默正常应用**（其 packed 存储保逻辑 2D 布局）；final_layer 走 resizing 强载正常——模型处于「半打补丁」态（渲染正常、adaln delta 丢失、质量降），v0.36.0 key-map 实测不改变此行为。等上游修复。
+
 ## 未尽事项
 
 - PDD vs Turbo 的**成片画质 A/B 盲测**（同 seed 8 步 vs 4 步目检打分）进行中——决定成片档是否整体切换

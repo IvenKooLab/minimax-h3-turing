@@ -98,6 +98,15 @@ full stack and repro. The v0.36.0 H3 key-map fix does not cover this. In the sam
 a Sep-19 rapidocr install also zeroed T8 cache hits (a separate contamination; mechanism
 under investigation).
 
+**Upstream progress (Sep 20)**: Comfy-Org collaborator Kaustubh1235 confirmed the root-cause
+direction the same day and asked about scope -> answered with a **per-layer census**
+([issuecomment-5758468110](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-5758468110)):
+on the same W4A8 weights, **only adaln_proj errors out**; attn.out_proj / qkv_proj /
+mlp.fc1 / fc2 **apply silently and correctly** (their packed storage keeps a logical 2D
+layout); final_layer applies via the resizing force-load path - the model ends up
+half-patched (renders fine, adaln deltas lost, quality degraded). Verified that the
+v0.36.0 key-map does not change this. Awaiting the upstream fix.
+
 ## Open Items
 
 - The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale

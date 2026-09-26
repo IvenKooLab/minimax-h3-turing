@@ -58,7 +58,7 @@ While everything is green, don't operate.
 4. Any failure → roll back from backup
 5. T8 test (does the node register now that the v3 Layers API is current?)
 6. PDD comparison: `simple` 8 steps + shifts 12/3 with the staged Acc-8Step LoRA, vs the Turbo 4-step at the same seed
-7. While at it: re-test SageAttention on sm_75 (see [03](03-sageattention-crash.md)) and the KJNodes built-in H3 Sage patch (see [06](06-faq.md) #8)
+7. While at it: re-test SageAttention on sm_75 (see [03](03-sageattention-crash.md)) and the KJNodes built-in H3 Sage patch (see [06](06-faq.md) #8); the quant+LoRA regression tracks upstream [#16420](https://github.com/Comfy-Org/ComfyUI/issues/16420) (the adaln_proj phantom-PDD lesson: always check load errors when validating)
 8. If it wins → make it the production default and update the verdict table here
 
 ## Pre-Window Recon (completed 2026-09-02)

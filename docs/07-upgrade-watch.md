@@ -56,7 +56,7 @@
 4. 任一失败 → 回滚备份
 5. T8 实测（v3 Layers API 到位后看节点能否注册）
 6. PDD 对比：`simple` 8 步 + shifts 12/3，加载已备料的 Acc-8Step LoRA，与现役 Turbo LoRA 4 步同 seed 对比
-7. 顺手复测：SageAttention 新版本 on sm_75（见 [03](03-sageattention-crash.md)）、KJNodes 内置 H3 Sage 补丁（见 [06](06-faq.md) 第 8 条）
+7. 顺手复测：SageAttention 新版本 on sm_75（见 [03](03-sageattention-crash.md)）、KJNodes 内置 H3 Sage 补丁（见 [06](06-faq.md) 第 8 条）；量化+LoRA 回归以上游 [#16420](https://github.com/Comfy-Org/ComfyUI/issues/16420) 的修复为准（adaln_proj 假 PDD 教训：验证必查加载错误）
 8. 赢了 → 写入产线标配，更新本文档判决表
 
 ## 窗口日前预热（2026-09-02 预演完成）
