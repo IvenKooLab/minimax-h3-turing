@@ -49,7 +49,9 @@
 
 - [x] **PDD LoRA master backport**（不等 v0.34.1+）：单文件不够→全量升级三坑全解（comfy_api 盲区/PyAV/T8 签名）→ **PDD 8步 600s 可复现 + PDD8+T8 组合 210s（-34%）命中 6/8** → [09](docs/09-pdd-backport.md)
 - [x] T8 节点 master 兼容补丁（FinalLayer 7 参签名自适应），待回馈上游
-- [ ] PDD vs Turbo 成片画质盲测；Ref2VA（i2v）版 PDD 待测
+- [x] Ref2VA（i2v）版 PDD 已测：933s 可复现 / +T8 **192s（-51%，命中 6/8）**——全项目最快
+- [x] T8 兼容上游闭环：节点包 **v1.0.4** 正式修复（显式签名检测），issue 回归验证后关闭
+- ⚠️ **9-20：PDD/T8 各档临时停用**——pip 环境污染（rembg/rapidocr 安装）破坏量化+LoRA 加载；根因已堆栈实锤并上报上游（[#16420](https://github.com/Comfy-Org/ComfyUI/issues/16420)）；成片盲测等修复后重排
 
 ### 💡 Phase 5 · 观望池
 

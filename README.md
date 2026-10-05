@@ -48,7 +48,9 @@ The same 5-second clip: **20–30 min/clip** in a typical environment following 
 
 - [x] **PDD LoRA master backport** (no waiting for v0.34.1+): single-file wasn't enough → full upgrade with three pitfalls solved (the comfy_api blind spot / PyAV / the T8 signature) → **PDD 8-step at 600 s reproducible, and PDD+T8 combo at 210 s (−34%) with 6/8 hits** → [09](docs/en/09-pdd-backport.md)
 - [x] T8 node master-compat patch (self-adapting to the 7-arg FinalLayer signature), upstream feedback pending
-- [ ] PDD vs Turbo final-shot quality blind test; Ref2VA (i2v) PDD variant pending
+- [x] Ref2VA (i2v) PDD variant tested: 933 s reproducible / +T8 **192 s (−51%, 6/8 hits)** — fastest in the project
+- [x] T8 compat closed upstream: node pack **v1.0.4** ships the explicit-signature fix; issue verified and closed
+- ⚠️ **Sep 20: PDD/T8 tiers temporarily benched** — a pip env contamination (rembg/rapidocr installs) broke quant+LoRA loading; root-caused with full stack and reported upstream ([#16420](https://github.com/Comfy-Org/ComfyUI/issues/16420)); final-shot blind test re-queued after the fix
 
 ### 💡 Phase 5 · Watchlist
 
