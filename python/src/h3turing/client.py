@@ -36,7 +36,13 @@ def bump_seed(graph: dict[str, Any], delta: int = 1) -> dict[str, Any]:
 
 
 class ValidationError(RuntimeError):
-    """ComfyUI rejected the graph; ``missing`` lists the offending inputs."""
+    """ComfyUI rejected the graph; ``missing`` lists the offending inputs.
+
+    Note: a 400 here is *loud* - the more dangerous failure is the silent one
+    (handbook docs/09): quantized weights + LoRA deltas that never apply while
+    rendering continues normally. Always check the server log for
+    'ERROR lora' lines after installing new pip packages or new LoRAs.
+    """
 
     def __init__(self, payload: dict[str, Any]):
         self.payload = payload

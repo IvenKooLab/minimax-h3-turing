@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "h3-turing"
-version = "0.1.0"
+version = "0.1.1"
 description = "Field-tested toolkit for running MiniMax H3 on Turing (sm_75) GPUs via ComfyUI - tier presets, API client, benchmark harness"
 readme = "README.md"
 requires-python = ">=3.9"

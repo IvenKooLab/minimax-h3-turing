@@ -74,6 +74,21 @@ def check_weights(models_dir: str | Path) -> list[Check]:
     return checks
 
 
+def check_lora_env(baseline_errors: int = 0) -> Check:
+    """Heuristic for the Sep-20 quant+LoRA contamination: after installing any pip
+    package, load your acceleration LoRA once and count 'ERROR lora' lines in the
+    server log. A delta above baseline means the quantized-weight patch path is
+    broken (see handbook docs/09 and upstream Comfy-Org/ComfyUI#16420) - the LoRA
+    loads 'successfully' but its deltas silently never apply."""
+    return Check(
+        "lora_env",
+        True,  # informational - the operator compares against baseline
+        "post-pip-install check: load the accel LoRA once and diff 'ERROR lora' "
+        f"count against baseline ({baseline_errors}); any increase = broken "
+        "quant+LoRA patch path (docs/09, upstream #16420)",
+    )
+
+
 def run_all(base: str = "http://127.0.0.1:8188", models_dir: str | Path | None = None) -> list[Check]:
     results = [check_comfyui(base)]
     if results[0].ok:
@@ -81,6 +96,7 @@ def run_all(base: str = "http://127.0.0.1:8188", models_dir: str | Path | None =
         results.append(check_t8_node(base))
     if models_dir:
         results.extend(check_weights(models_dir))
+    results.append(check_lora_env())
     return results
 
 
