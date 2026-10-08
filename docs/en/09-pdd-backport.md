@@ -107,6 +107,8 @@ layout); final_layer applies via the resizing force-load path - the model ends u
 half-patched (renders fine, adaln deltas lost, quality degraded). Verified that the
 v0.36.0 key-map does not change this. Awaiting the upstream fix.
 
+**Oct 5 follow-up**: upgraded to **v0.39.0** and re-tested - still reproduces (50 errors per load), but the new stack goes through v0.39's new `to_dequant()` guard (ops.py:314) -> the gap narrowed: the `isinstance(tensor, QuantizedTensor)` check **misses adaln's packed representation** (attn/mlp are that type, hence they dequantize fine). Hypothesis posted upstream ([issuecomment-6063362109](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6063362109)). This box now runs v0.39.0.
+
 ## Open Items
 
 - The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale

@@ -89,6 +89,8 @@ except TypeError:
 
 **上游进展（9-20）**：Comfy-Org 协作者 Kaustubh1235 当日确认根因方向并追问影响面 → 已回帖**逐层普查**（[issuecomment-5758468110](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-5758468110)）：同一份 W4A8 权重上**仅 adaln_proj 报错**；attn.out_proj / qkv_proj / mlp.fc1 / fc2 **静默正常应用**（其 packed 存储保逻辑 2D 布局）；final_layer 走 resizing 强载正常——模型处于「半打补丁」态（渲染正常、adaln delta 丢失、质量降），v0.36.0 key-map 实测不改变此行为。等上游修复。
 
+**10-05 追进**：升级 **v0.39.0** 复测——仍复现（50 错/次），但新堆栈走的是 v0.39 新增的 `to_dequant()` 守卫（ops.py:314）→ 破绽定位：`isinstance(tensor, QuantizedTensor)` 检查**漏掉 adaln 的 packed 表示**（attn/mlp 是该类型所以正常解包），假说已回帖上游（[issuecomment-6063362109](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6063362109)）。本机现处 v0.39.0。
+
 ## 未尽事项
 
 - PDD vs Turbo 的**成片画质 A/B 盲测**（同 seed 8 步 vs 4 步目检打分）进行中——决定成片档是否整体切换
