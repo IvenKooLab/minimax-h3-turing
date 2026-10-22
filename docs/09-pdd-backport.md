@@ -91,6 +91,8 @@ except TypeError:
 
 **10-05 追进**：升级 **v0.39.0** 复测——仍复现（50 错/次），但新堆栈走的是 v0.39 新增的 `to_dequant()` 守卫（ops.py:314）→ 破绽定位：`isinstance(tensor, QuantizedTensor)` 检查**漏掉 adaln 的 packed 表示**（attn/mlp 是该类型所以正常解包），假说已回帖上游（[issuecomment-6063362109](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6063362109)）。本机现处 v0.39.0。
 
+**10-22 终判**：升级 **v0.42.1 + comfy-kitchen 0.2.40 + aimdo 0.5.6**（完整依赖环境）——真任务 8 步 640s 出片，adaln 报错 378 条**完全复现**。#16420 自 master 至 v0.42.1 全版本线未修（已回帖 [issuecomment-6344642510](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6344642510)）。**新坑（升级篇）**：v0.42.1 的 ops.py 调用 `QuantizedTensor.linear_input_act`（kitchen ≥0.2.39 才有）——**jsdelivr/ghfast 同步了 py 文件但 pip 依赖不同步会得到另一种崩溃**（SamplerCustomAdvanced AttributeError），文件与依赖必须一起动。本机现处完整 v0.42.1。
+
 ## 未尽事项
 
 - PDD vs Turbo 的**成片画质 A/B 盲测**（同 seed 8 步 vs 4 步目检打分）进行中——决定成片档是否整体切换

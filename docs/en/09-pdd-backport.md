@@ -109,6 +109,8 @@ v0.36.0 key-map does not change this. Awaiting the upstream fix.
 
 **Oct 5 follow-up**: upgraded to **v0.39.0** and re-tested - still reproduces (50 errors per load), but the new stack goes through v0.39's new `to_dequant()` guard (ops.py:314) -> the gap narrowed: the `isinstance(tensor, QuantizedTensor)` check **misses adaln's packed representation** (attn/mlp are that type, hence they dequantize fine). Hypothesis posted upstream ([issuecomment-6063362109](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6063362109)). This box now runs v0.39.0.
 
+**Oct 22 final**: upgraded to **v0.42.1 + comfy-kitchen 0.2.40 + aimdo 0.5.6** (full dependency set) - a real 8-step render completes in 640 s with 378 adaln errors, **fully reproduced**. #16420 remains unfixed across master..v0.42.1 (posted as [issuecomment-6344642510](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6344642510)). **New upgrade pitfall**: v0.42.1's ops.py calls `QuantizedTensor.linear_input_act` (kitchen >= 0.2.39 only) - syncing the py files without the pip deps yields a *different* crash (SamplerCustomAdvanced AttributeError); files and deps must move together. This box now runs the full v0.42.1 stack.
+
 ## Open Items
 
 - The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale
