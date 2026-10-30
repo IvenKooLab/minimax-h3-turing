@@ -111,6 +111,8 @@ v0.36.0 key-map does not change this. Awaiting the upstream fix.
 
 **Oct 22 final**: upgraded to **v0.42.1 + comfy-kitchen 0.2.40 + aimdo 0.5.6** (full dependency set) - a real 8-step render completes in 640 s with 378 adaln errors, **fully reproduced**. #16420 remains unfixed across master..v0.42.1 (posted as [issuecomment-6344642510](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6344642510)). **New upgrade pitfall**: v0.42.1's ops.py calls `QuantizedTensor.linear_input_act` (kitchen >= 0.2.39 only) - syncing the py files without the pip deps yields a *different* crash (SamplerCustomAdvanced AttributeError); files and deps must move together. This box now runs the full v0.42.1 stack.
 
+**Oct 30 T8 re-test (post cleanup fix)**: the signature-based probe fix is deployed — the cleanup TypeError is **gone** (job completes normally, 330 s). But a deeper layer surfaced: **cached 0/4 with zero per-step decision logs** (verbose=True should print per-step audio/video diff and hit/refresh lines) — the T8 block wrapper appears to be **entirely inactive on v0.42.1** (330 s ≈ the 320 s no-T8 baseline). Working hits: 0.33.1 (Sep 1, 2/4) -> v0.39 (Sep 15, 6/8) -> v0.42.1 (zero hits, wrapper inert): **the T8 incompatibility with the new cast/wrapper mounting is compound**; deeper investigation pending.
+
 ## Open Items
 
 - The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale

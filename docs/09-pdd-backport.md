@@ -93,6 +93,8 @@ except TypeError:
 
 **10-22 终判**：升级 **v0.42.1 + comfy-kitchen 0.2.40 + aimdo 0.5.6**（完整依赖环境）——真任务 8 步 640s 出片，adaln 报错 378 条**完全复现**。#16420 自 master 至 v0.42.1 全版本线未修（已回帖 [issuecomment-6344642510](https://github.com/Comfy-Org/ComfyUI/issues/16420#issuecomment-6344642510)）。**新坑（升级篇）**：v0.42.1 的 ops.py 调用 `QuantizedTensor.linear_input_act`（kitchen ≥0.2.39 才有）——**jsdelivr/ghfast 同步了 py 文件但 pip 依赖不同步会得到另一种崩溃**（SamplerCustomAdvanced AttributeError），文件与依赖必须一起动。本机现处完整 v0.42.1。
 
+**10-30 T8 复验（cleanup 修复后）**：签名探测修复已部署——cleanup TypeError **消失**（任务正常 success，330s）。但发现更深一层：**cached 0/4 且无任何 per-step 判定日志**（verbose=True 下应输出每步 audio/video diff 与 hit/refresh 行）——T8 的 block wrapper 在 v0.42.1 上疑似**整体未挂载生效**（330s≈无 T8 的 320s 基线）。0.33.1（9-1，2/4 命中）→ v0.39（9-15，6/8）→ v0.42.1（0 命中+wrapper 失效）：**T8 与新版 cast/wrapper 挂载机制的不兼容是复合问题**，深挖待续。
+
 ## 未尽事项
 
 - PDD vs Turbo 的**成片画质 A/B 盲测**（同 seed 8 步 vs 4 步目检打分）进行中——决定成片档是否整体切换
