@@ -79,12 +79,6 @@ The same 5-second clip: **20–30 min/clip** in a typical environment following 
 - ComfyUI: v0.33.1 baseline (the handbook also documents a full upgrade to master for PDD — see [09](docs/en/09-pdd-backport.md))
 - Route: h3lite W4A8 compat + fl2v Turbo 4-step LoRA (optional T8 draft tier, see [08](docs/en/08-t8-blockcache-4step.md))
 
-## Mirrors
-
-| Platform | URL |
-|---|---|
-| Gitee (primary) | https://gitee.com/IvenKooLab/minimax-h3-turing |
-| GitHub | https://github.com/IvenKooLab/minimax-h3-turing |
 
 Both are auto-synced (Gitee is the authoritative source).
 
