@@ -113,6 +113,8 @@ v0.36.0 key-map does not change this. Awaiting the upstream fix.
 
 **Oct 30 T8 re-test (post cleanup fix)**: the signature-based probe fix is deployed — the cleanup TypeError is **gone** (job completes normally, 330 s). But a deeper layer surfaced: **cached 0/4 with zero per-step decision logs** (verbose=True should print per-step audio/video diff and hit/refresh lines) — the T8 block wrapper appears to be **entirely inactive on v0.42.1** (330 s ≈ the 320 s no-T8 baseline). Working hits: 0.33.1 (Sep 1, 2/4) -> v0.39 (Sep 15, 6/8) -> v0.42.1 (zero hits, wrapper inert): **the T8 incompatibility with the new cast/wrapper mounting is compound**; deeper investigation pending.
 
+**Nov 9 side-finding (ref2v line, same family, different symptom)**: while testing the native `MiniMaxH3ReferenceToVideo` (AUTOGROW slots, v0.42.1), a control experiment caught: **the identical payload validates OK once, then the immediate second submission 400s** (`ref_image_size` drops out of the required set) — AUTOGROW slots get rewritten by the runtime during execution, and the validation schema shifts for subsequent submissions. Proven with a 30-second OK->400 alternation on the same payload. Workaround: re-stamp every scalar slot from the source file before each submission; the real fix belongs in upstream AUTOGROW execution behavior. (The ref2v checkpoint's adaln_proj shape anomaly is unrelated to #16420 — ref2v uses a separate weights path.)
+
 ## Open Items
 
 - The **PDD vs Turbo final-shot quality blind test** (8-step vs 4-step at the same seed, scored blind) in progress — decides whether the final-shot tier switches wholesale

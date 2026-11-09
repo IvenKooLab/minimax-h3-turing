@@ -95,6 +95,8 @@ except TypeError:
 
 **10-30 T8 复验（cleanup 修复后）**：签名探测修复已部署——cleanup TypeError **消失**（任务正常 success，330s）。但发现更深一层：**cached 0/4 且无任何 per-step 判定日志**（verbose=True 下应输出每步 audio/video diff 与 hit/refresh 行）——T8 的 block wrapper 在 v0.42.1 上疑似**整体未挂载生效**（330s≈无 T8 的 320s 基线）。0.33.1（9-1，2/4 命中）→ v0.39（9-15，6/8）→ v0.42.1（0 命中+wrapper 失效）：**T8 与新版 cast/wrapper 挂载机制的不兼容是复合问题**，深挖待续。
 
+**11-09 附加发现（ref2v 线，同根不同症）**：实测原生 `MiniMaxH3ReferenceToVideo`（AUTOGROW 槽位版，v0.42.1）时发现：**同一工作流载荷第一次提交 OK、紧接着的第二次提交 400**（`ref_image_size` 从 required 集消失）——AUTOGROW 槽位在执行期被 runtime 改写，后续提交的 schema 校验随之变化。对照实验实锤（30 秒内同载荷 OK→400 交替）。绕法：每次提交前从文件源重打全部标量槽；根治待上游 AUTOGROW 执行期行为修复。另：该工作流 ref2v 的 adaln_proj 检查点形态问题与本页 #16420 无关（ref2v 用独立权重路径）。
+
 ## 未尽事项
 
 - PDD vs Turbo 的**成片画质 A/B 盲测**（同 seed 8 步 vs 4 步目检打分）进行中——决定成片档是否整体切换
